@@ -2,8 +2,8 @@ import React from 'react';
 import {
   TouchableHighlight,
 }from 'react-native';
-import {Colors} from '../utils/Colors';
-import Icon from './Icon';
+import {Colors} from '../../utils/Colors';
+import Icon from '../others/Icon';
 
 export default function IconButton({
                           label, 

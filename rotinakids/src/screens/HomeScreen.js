@@ -2,7 +2,7 @@ import React from "react";
 import {
   FlatList,
 } from 'react-native';
-import Screen from "../components/Screen";
+import Screen from "../components/others/Screen";
 
 export default function HomeScreen({navigation}){
   return (

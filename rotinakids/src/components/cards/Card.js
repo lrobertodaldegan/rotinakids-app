@@ -4,7 +4,7 @@ import {
     StyleSheet,
     Dimensions,
 }from 'react-native';
-import { Colors } from '../utils';
+import { Colors } from '../../utils';
 
 
 export default function Card({content}) {

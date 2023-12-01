@@ -5,8 +5,8 @@ import {
     View,
 }from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import {Colors} from '../utils/Colors';
-import Label from './Label';
+import {Colors} from '../../utils/Colors';
+import Label from '../others/Label';
 
 export default function Button({label, labelSize=18, icon, iconSize=15, action=()=>null}) {
     return (

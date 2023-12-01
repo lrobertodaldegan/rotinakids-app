@@ -4,9 +4,9 @@ import {
   StatusBar,
   View
 } from 'react-native';
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import { Colors } from "../utils";
+import Header from "./Header";
+import Footer from "./Footer";
+import { Colors } from "../../utils";
 
 export default function Screen({navigation,label='',content=<></>}){
   return (

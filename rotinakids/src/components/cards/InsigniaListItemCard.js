@@ -5,9 +5,9 @@ import {
     Dimensions,
     ImageBackground,
 }from 'react-native';
-import Label from './Label';
+import Label from '../others/Label';
 import Card from './Card';
-import { insignias } from '../utils/Insignias';
+import { insignias } from '../../utils/Insignias';
 
 export default function InsigniaListItemCard({insigniaId, label}) {
 

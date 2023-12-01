@@ -1,10 +1,10 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {
     ImageBackground,
     StyleSheet,
     Dimensions,
 }from 'react-native';
-import logo from '../assets/img/logo.png';
+import logo from '../../assets/img/logo.png';
 
 
 export default function Logo({style={}}) {

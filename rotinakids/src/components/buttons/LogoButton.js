@@ -3,9 +3,9 @@ import {
   TouchableHighlight,
   View,
 }from 'react-native';
-import {Colors} from '../utils/Colors';
-import Label from './Label';
-import Logo from './Logo';
+import {Colors} from '../../utils/Colors';
+import Label from '../others/Label';
+import Logo from '../others/Logo';
 
 export default function LogoButton({navigation, label=null, style={}}) {
 

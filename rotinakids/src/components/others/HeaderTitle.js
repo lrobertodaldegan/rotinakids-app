@@ -4,7 +4,7 @@ import {
   StyleSheet
 } from 'react-native';
 import Label from './Label';
-import LogoButton from './LogoButton';
+import LogoButton from '../buttons/LogoButton';
 
 export default function HeaderTitle({navigation, label=null}) {
   return (

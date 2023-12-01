@@ -8,9 +8,9 @@ import { faAward, faPalette } from '@fortawesome/free-solid-svg-icons';
 import { BannerAd,BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
 const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-2420598559068720/5033949228';
 
-import {Colors} from '../utils/Colors';
-import ColorModal from './ColorModal';
-import IconButton from './IconButton';
+import {Colors} from '../../utils/Colors';
+import ColorModal from '../modals/ColorModal';
+import IconButton from '../buttons/IconButton';
 import HeaderTitle from './HeaderTitle';
 
 

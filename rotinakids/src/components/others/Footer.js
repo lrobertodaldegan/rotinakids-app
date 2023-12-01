@@ -1,19 +1,14 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {
     View,
     StyleSheet,
     Dimensions,
-    TouchableHighlight,
 }from 'react-native';
-import { faArrowLeft, faClipboardList, faFloppyDisk, faGift, faTasks } from '@fortawesome/free-solid-svg-icons';
-import { BannerAd,BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
-const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-2420598559068720/5033949228';
+import { faClipboardList, faGift, } from '@fortawesome/free-solid-svg-icons';
 
-import {Colors} from '../utils/Colors';
-import Logo from './Logo';
-import Icon from './Icon';
-import IconButton from './IconButton';
-import LogoButton from './LogoButton';
+import {Colors} from '../../utils/Colors';
+import IconButton from '../buttons/IconButton';
+import LogoButton from '../buttons/LogoButton';
 
 
 export default function Footer({navigation, label}) {

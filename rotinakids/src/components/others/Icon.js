@@ -4,7 +4,7 @@ import {
     StyleSheet,
 }from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import {Colors} from '../utils/Colors';
+import {Colors} from '../../utils/Colors';
 import Label from './Label';
 
 export default function Icon({style={}, icon, label, size=20}) {

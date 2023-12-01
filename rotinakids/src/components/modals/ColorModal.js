@@ -5,8 +5,8 @@ import {
     Dimensions,
     TouchableHighlight,
 }from 'react-native';
-import {Colors} from '../utils/Colors';
-import Label from './Label';
+import {Colors} from '../../utils/Colors';
+import Label from '../others/Label';
 import Modal from './Modal';
 
 

@@ -3,7 +3,7 @@ import {
     StyleSheet,
     Text,
 }from 'react-native';
-import {Colors} from '../utils/Colors';
+import {Colors} from '../../utils/Colors';
 
 export default function Label({style={}, value, size=10, bold=false}) {
     return (

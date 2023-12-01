@@ -6,8 +6,8 @@ import {
   Dimensions,
   TouchableHighlight,
 }from 'react-native';
-import {Colors} from '../utils/Colors';
-import Icon from './Icon';
+import {Colors} from '../../utils/Colors';
+import Icon from '../others/Icon';
 
 export default function Modal({content, onClose=()=>null}) {
   return (

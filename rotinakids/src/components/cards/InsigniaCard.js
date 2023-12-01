@@ -4,10 +4,10 @@ import {
     Dimensions,
     ImageBackground,
 }from 'react-native';
-import { Colors } from '../utils';
-import Label from './Label';
+import { Colors } from '../../utils';
+import Label from '../others/Label';
 import Card from './Card';
-import insignias from '../assets/img/insignias.png';
+import insignias from '../../assets/img/insignias.png';
 
 export default function InsigniaCard() {
   return (
