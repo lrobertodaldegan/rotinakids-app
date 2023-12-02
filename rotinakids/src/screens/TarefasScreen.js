@@ -1,6 +1,9 @@
 import React, {useEffect, useState} from "react";
 import {
   FlatList,
+  View,
+  StyleSheet,
+  Dimensions,
 } from 'react-native';
 import DefaultTasksCard from "../components/cards/DefaultTaskCard";
 import NewTasksCard from "../components/cards/NewTaskCard";
@@ -33,9 +36,24 @@ export default function TarefasScreen({navigation}){
               data={tasks}
               ListEmptyComponent={<></>}
               renderItem={({item}) => item}
-              ListFooterComponent={<NewTasksCard />}
+              ListHeaderComponent={<View style={styles.topFoot}/>}
+              ListFooterComponent={
+                <>
+                  <NewTasksCard />
+
+                  <View style={styles.topFoot}/>
+                </>
+              }
           />
         }
     />
   );
 }
+
+const screen = Dimensions.get('screen');
+
+const styles = StyleSheet.create({
+  topFoot:{
+    height:screen.height * 0.17
+  }
+});

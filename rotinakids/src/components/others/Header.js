@@ -40,28 +40,30 @@ export default function Header({navigation, label=null, showActions=false}) {
   }
 
   return (
-    <View style={showModal === true ? styles.ctn : {}}>
-      <BannerAd
-          unitId={adUnitId}
-          size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-          requestOptions={{requestNonPersonalizedAdsOnly: false,}}
-      />
+    <>
+      <View style={styles.ctn}>
+        <BannerAd
+            unitId={adUnitId}
+            size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+            requestOptions={{requestNonPersonalizedAdsOnly: false,}}
+        />
 
-      <View style={styles.ctnl} elevation={5}>
-        <HeaderTitle navigation={navigation}
-            label={label}/>  
+        <View style={styles.ctnl} elevation={3}>
+          <HeaderTitle navigation={navigation}
+              label={label}/>  
 
-        <View style={styles.actions}>
-          <IconButton icon={faAward} label={'Insígnias'}
-              style={styles.insigniaAction}
-              onPress={() => navigation.navigate('Insignias')}/>
+          <View style={styles.actions}>
+            <IconButton icon={faAward} label={'Medalhas'}
+                style={styles.insigniaAction}
+                onPress={() => navigation.navigate('Insignias')}/>
 
-          {renderActions()}
+            {renderActions()}
+          </View>
         </View>
       </View>
-  
+
       {renderModal()}
-    </View>
+    </>
   )
 }
 
@@ -69,7 +71,10 @@ const screen = Dimensions.get('screen');
 
 const styles = StyleSheet.create({
     ctn:{
-      height:screen.height,
+      position:'absolute',
+      backgroundColor:'transparent',
+      top:0,
+      zIndex:10
     },
     ctnl:{
         flexDirection:'row',
