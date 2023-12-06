@@ -11,7 +11,7 @@ import PointsInput from '../inputs/PointsInput';
 import ExcludeButton from '../buttons/ExcludeButton';
 import IconInput from '../inputs/IconInput';
 
-export default function TasksCard({
+export default function TaskCard({
                                   item={id:0,title:'',value:10},
                                   onSave=(item)=>null,
                                   onExclude=(id)=>null

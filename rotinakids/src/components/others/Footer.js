@@ -19,7 +19,7 @@ export default function Footer({navigation, label}) {
           <LogoButton navigation={navigation} label='Início'/>
         </View>
 
-      <View style={styles.ctnl} elevation={5}>
+      <View style={styles.ctnl} elevation={2}>
         <IconButton icon={faGift} iconSize={30} label='Recompensas'
             iconStyle={label === 'Recompensas' ? styles.iconSelected : {}}
             onPress={() => navigation.navigate('Recompensas')}/>

@@ -11,7 +11,7 @@ import DisableButton from '../buttons/DisableButton';
 import PointsInput from '../inputs/PointsInput';
 import Input from '../inputs/Input';
 
-export default function NewTasksCard({
+export default function NewTaskCard({
                                   onSave=(val)=>null,
                                   onDisable=(val)=>null
                                 }) {
