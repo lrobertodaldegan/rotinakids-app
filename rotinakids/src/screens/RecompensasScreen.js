@@ -1,6 +1,9 @@
 import React from "react";
 import {
   ScrollView,
+  View,
+  StyleSheet,
+  Dimensions,
 } from 'react-native';
 import InputAwardCard from "../components/cards/InputAwardCard";
 import PointsAwardCard from "../components/cards/PointsAwardCard";
@@ -11,6 +14,8 @@ export default function RecompensasScreen({navigation}){
     <Screen navigation={navigation} label='Recompensas' 
         content={
           <ScrollView keyboardDismissMode="on-drag">
+            <View style={styles.topFoot}/>
+
             <InputAwardCard title='Recompensa diária' 
                 placeholder='Toque para definir uma recompensa diária'
             />
@@ -27,8 +32,18 @@ export default function RecompensasScreen({navigation}){
                 subtitle={'Toque para definir uma recompensa por pontos'}
                 placeholder={'0'}
             />
+
+            <View style={styles.topFoot}/>
           </ScrollView>
         }
     />
   );
 }
+
+const screen = Dimensions.get('screen');
+
+const styles = StyleSheet.create({
+  topFoot:{
+    height:screen.height * 0.17
+  }
+});

@@ -37,7 +37,8 @@ const styles = StyleSheet.create({
     top:10,
     height:screen.height - 20,
     paddingVertical:20,
-    paddingHorizontal:10
+    paddingHorizontal:10,
+    zIndex:20
   },
   close:{
     alignItems:'flex-end',

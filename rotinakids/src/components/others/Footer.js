@@ -14,12 +14,11 @@ import LogoButton from '../buttons/LogoButton';
 export default function Footer({navigation, label}) {
   return (
     <View style={styles.wrap}>
-
         <View style={styles.circle}>
           <LogoButton navigation={navigation} label='Início'/>
         </View>
 
-      <View style={styles.ctnl} elevation={2}>
+      <View style={styles.ctnl} elevation={1}>
         <IconButton icon={faGift} iconSize={30} label='Recompensas'
             iconStyle={label === 'Recompensas' ? styles.iconSelected : {}}
             onPress={() => navigation.navigate('Recompensas')}/>
@@ -35,6 +34,11 @@ export default function Footer({navigation, label}) {
 const screen = Dimensions.get('screen');
 
 const styles = StyleSheet.create({
+  wrap:{
+    position:'absolute',
+    bottom:0,
+    backgroundColor:'transparent'
+  },
   ctnl:{
     flexDirection:'row',
     justifyContent:"space-between",
