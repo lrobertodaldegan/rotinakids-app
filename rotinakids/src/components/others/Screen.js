@@ -12,7 +12,8 @@ import { getColor } from "../../service/ColorService";
 export default function Screen({
                             navigation,
                             label='',
-                            showHeaderActions=false, 
+                            avatarId=null,
+                            showHeaderActions=true, 
                             content=<></>
                           }){
   const [bg, setBg] = useState(null);
@@ -29,7 +30,7 @@ export default function Screen({
           backgroundColor={Colors.lightGray}/>
 
       <Header navigation={navigation} label={label} 
-          onChangeColor={setBg}
+          onChangeColor={setBg} avatarId={avatarId}
           showActions={showHeaderActions}/>
 
       {content}

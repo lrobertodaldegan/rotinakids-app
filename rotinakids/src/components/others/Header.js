@@ -18,6 +18,7 @@ export default function Header({
                             navigation, 
                             label=null, 
                             showActions=false,
+                            avatarId=null,
                             onChangeColor=(c)=>null
                           }) {
 
@@ -64,6 +65,7 @@ export default function Header({
 
         <View style={styles.ctnl} elevation={3}>
           <HeaderTitle navigation={navigation}
+              avatarId={avatarId}
               label={label}/>  
 
           <View style={styles.actions}>

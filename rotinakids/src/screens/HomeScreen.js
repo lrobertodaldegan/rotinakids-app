@@ -34,7 +34,7 @@ export default function HomeScreen({navigation}){
   }
 
   return (
-    <Screen navigation={navigation} label='Meus filhos' 
+    <Screen navigation={navigation} label='Meus filhos'
         content={
           <FlatList
               ListHeaderComponent={<View style={styles.topFoot}/>}
