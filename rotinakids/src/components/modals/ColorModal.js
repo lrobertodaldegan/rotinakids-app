@@ -3,15 +3,15 @@ import {
     View,
     StyleSheet,
     Dimensions,
-    TouchableHighlight,
 }from 'react-native';
 import {Colors} from '../../utils/Colors';
 import Label from '../others/Label';
 import Modal from './Modal';
+import ColorButton from '../buttons/ColorButton';
 
 
 export default function ColorModal({
-                    onSelection=()=>null, 
+                    onSelection=(c)=>null, 
                     onClose=()=>null}) {
   return (
     <Modal onClose={onClose}
@@ -21,59 +21,23 @@ export default function ColorModal({
             <Label value={'Escolha uma cor:'} size={20}/>
 
             <View style={styles.modalContent}>
-              <TouchableHighlight underlayColor={Colors.white} 
-                  onPress={onSelection}
-                  style={[
-                    styles.colorBtn, 
-                    {backgroundColor:Colors.yellow}
-                  ]}>
-                <></>
-              </TouchableHighlight>
+              <ColorButton color={Colors.yellow} 
+                  onSelection={onSelection}/>
 
-              <TouchableHighlight underlayColor={Colors.white} 
-                  onPress={onSelection}
-                  style={[
-                    styles.colorBtn, 
-                    {backgroundColor:Colors.green}
-                  ]}>
-                <></>
-              </TouchableHighlight>
+              <ColorButton color={Colors.green} 
+                  onSelection={onSelection}/>
 
-              <TouchableHighlight underlayColor={Colors.white} 
-                  onPress={onSelection}
-                  style={[
-                    styles.colorBtn, 
-                    {backgroundColor:Colors.gray}
-                  ]}>
-                <></>
-              </TouchableHighlight>
+              <ColorButton color={Colors.gray} 
+                  onSelection={onSelection}/>
 
-              <TouchableHighlight underlayColor={Colors.white} 
-                  onPress={onSelection}
-                  style={[
-                    styles.colorBtn, 
-                    {backgroundColor:Colors.purple}
-                  ]}>
-                <></>
-              </TouchableHighlight>
+              <ColorButton color={Colors.purple} 
+                  onSelection={onSelection}/>
 
-              <TouchableHighlight underlayColor={Colors.white} 
-                  onPress={onSelection}
-                  style={[
-                    styles.colorBtn, 
-                    {backgroundColor:Colors.lightGray}
-                  ]}>
-                <></>
-              </TouchableHighlight>
+              <ColorButton color={Colors.lightGray} 
+                  onSelection={onSelection}/>
 
-              <TouchableHighlight underlayColor={Colors.white} 
-                  onPress={onSelection}
-                  style={[
-                    styles.colorBtn, 
-                    {backgroundColor:Colors.blue}
-                  ]}>
-                <></>
-              </TouchableHighlight>
+              <ColorButton color={Colors.blue} 
+                  onSelection={onSelection}/>
             </View>
           </View>
         } 
@@ -84,23 +48,15 @@ export default function ColorModal({
 const screen = Dimensions.get('screen');
 
 const styles = StyleSheet.create({
-    modalWrap:{
-      paddingVertical:screen.height * 0.1,
-      paddingHorizontal:screen.width * 0.05,
-      alignItems:'center'
-    },
-    modalContent:{
-      flexDirection:'row',
-      flexWrap:'wrap',
-      marginTop:20,
-      justifyContent:'center',
-    },
-    colorBtn:{
-      width:screen.width * 0.2,
-      height:screen.width * 0.2,
-      borderRadius:screen.width * 0.2,
-      borderColor:Colors.lightGray,
-      borderWidth:1,
-      margin:10
-    },
+  modalWrap:{
+    paddingVertical:screen.height * 0.1,
+    paddingHorizontal:screen.width * 0.05,
+    alignItems:'center'
+  },
+  modalContent:{
+    flexDirection:'row',
+    flexWrap:'wrap',
+    marginTop:20,
+    justifyContent:'center',
+  },
 });

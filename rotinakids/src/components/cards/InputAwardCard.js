@@ -1,8 +1,9 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
     StyleSheet,
     Dimensions,
     View,
+    ToastAndroid,
 }from 'react-native';
 import Label from '../others/Label';
 import Card from './Card';
@@ -13,10 +14,31 @@ import DisableButton from '../buttons/DisableButton';
 export default function InputAwardCard({
                                   title, 
                                   placeholder, 
+                                  item=null,
+                                  onChange=(val)=>null,
                                   onSave=(val)=>null,
                                   onDisable=(val)=>null
                                 }) {
-  const [val, setVal] = useState(null);
+
+  const [disabled, setDisabled] = useState(item?.disabled);
+
+  const handleSave = () => {
+    onSave({title:item?.title, disabled:disabled === true});
+
+    ToastAndroid.show('Recompensa salva!', ToastAndroid.SHORT);
+  }
+
+  const handleDisable = () => {
+    let dis = !disabled;
+
+    setDisabled(dis);
+
+    onDisable({title:item?.title, disabled:dis === true});
+
+    ToastAndroid.show(
+                `Recompensa ${dis === true ? 'desabilitada' : 'habilitada'}!`, 
+                ToastAndroid.SHORT);
+  }
 
   return (
     <Card content={
@@ -24,12 +46,12 @@ export default function InputAwardCard({
         <Label style={styles.title} size={18} value={title}/>
       
         <Input label={placeholder}
-            value={val} onChange={(txt) => setVal(txt)}/>
+            value={item?.title} onChange={onChange}/>
 
         <View style={styles.btnWrap}>
-          <SaveButton onPress={() => onSave(val)}/>
+          <SaveButton onPress={handleSave}/>
 
-          <DisableButton onPress={() => onDisable(val)}/>
+          <DisableButton onPress={handleDisable}/>
         </View>
       </>
     }/>

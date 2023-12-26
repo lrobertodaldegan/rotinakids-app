@@ -24,6 +24,18 @@ export default function TaskCard({
     setTitle(item.title);
   }, []);
 
+  const handleSave = () => {
+    onSave({id:title, title:title, value:val});
+
+    ToastAndroid.show('Tarefa salva!', ToastAndroid.SHORT);
+  }
+
+  const handleExclude = () => {
+    onExclude(title);
+
+    ToastAndroid.show('Tarefa removida!', ToastAndroid.SHORT);
+  }
+
   return (
     <Card content={
       <>
@@ -35,10 +47,10 @@ export default function TaskCard({
 
         <View style={styles.btnWrap}>
           <SaveButton 
-              onPress={() => onSave({id:item.id,title:title, value:val})}/>
+              onPress={handleSave}/>
 
           <ExcludeButton 
-              onPress={() => onExclude(item.id)}/>
+              onPress={handleExclude}/>
         </View>
       </>
     }/>

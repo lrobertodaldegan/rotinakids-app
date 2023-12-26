@@ -8,16 +8,17 @@ import {
 import Label from '../others/Label';
 import Card from './Card';
 import { insignias } from '../../utils/Insignias';
+import Insignia from '../others/Insignia';
 
 export default function InsigniaListItemCard({insigniaId, label}) {
 
   const renderInsignia = () => {
-    for(let i = 0; i < insignias.length; i++){
-      if(insignias[i].id === insigniaId)
-        return <ImageBackground source={insignias[i].icon} style={[styles.logo]} resizeMode='contain'/>
-    }
-
-    return <></>
+    let insigniaF = insignias.filter(i => i.id === insigniaId)
+    
+    if(insigniaF && insigniaF !== null && insigniaF.length > 0)
+      return <Insignia insignia={insigniaF[0]} />
+    else
+      return <></>
   }
 
   return (

@@ -12,20 +12,26 @@ export default function IconInput({
                               label='', 
                               value='',
                               icon=faPen, 
+                              iconColor=Colors.pinker,
                               style={},
+                              placeholderColor=Colors.gray,
+                              maxLength=null,
+                              multiLine=true,
                               onChange=(val)=>null
                             }) {
   return (
     <View style={styles.wrap}>
-      <FontAwesomeIcon icon={icon} style={styles.icon}/>
+      <FontAwesomeIcon icon={icon} size={12}
+          style={[styles.icon, {color:iconColor}]}/>
 
       <TextInput value={value} 
           style={[styles.input,style]}
           onChangeText={(text) => onChange(text)}
           placeholder={label}
-          placeholderTextColor={Colors.gray}
+          placeholderTextColor={placeholderColor}
           textBreakStrategy='simple'
-          multiline={true}
+          maxLength={maxLength}
+          multiline={multiLine}
       />
     </View>
   )
@@ -49,7 +55,6 @@ const styles = StyleSheet.create({
     minWidth:50
   },
   icon:{
-    color:Colors.pinker,
-    fontSize:18
+
   },
 });

@@ -3,17 +3,16 @@ import {
     StyleSheet,
     Dimensions,
     View,
+    ToastAndroid,
 }from 'react-native';
 import { Colors } from '../../utils';
 import Card from './Card';
 import SaveButton from '../buttons/SaveButton';
-import DisableButton from '../buttons/DisableButton';
 import PointsInput from '../inputs/PointsInput';
 import Input from '../inputs/Input';
 
 export default function NewTaskCard({
                                   onSave=(val)=>null,
-                                  onDisable=(val)=>null
                                 }) {
   const [title, setTitle] = useState(null);
   const [val, setVal] = useState(null);
@@ -21,6 +20,15 @@ export default function NewTaskCard({
   useEffect(() => {
     setVal(10);
   }, []);
+
+  const handleSave = () => {
+    onSave({id:title, title:title, value:val});
+
+    setTitle(null);
+    setVal(10);
+
+    ToastAndroid.show('Tarefa salva!', ToastAndroid.SHORT);
+  }
 
   return (
     <Card content={
@@ -32,7 +40,7 @@ export default function NewTaskCard({
         <PointsInput value={val} onChange={(v) => setVal(v)}/>
 
         <View style={styles.btnWrap}>
-          <SaveButton onPress={() => onSave(val)}/>
+          <SaveButton onPress={handleSave}/>
         </View>
       </>
     }/>

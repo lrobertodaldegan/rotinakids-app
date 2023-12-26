@@ -3,17 +3,20 @@ import {
     View,
     StyleSheet,
     Dimensions,
+    TouchableHighlight,
 }from 'react-native';
 import { Colors } from '../../utils';
 
 
-export default function Card({content}) {
+export default function Card({content, onPress=()=>null}) {
   return (
-    <View style={styles.wrap} elevation={5}>
+    <TouchableHighlight underlayColor={Colors.white} onPress={onPress}>
+      <View style={styles.wrap} elevation={5}>
 
-      {content}
+        {content}
 
-    </View>
+      </View>
+    </TouchableHighlight>
   )
 }
 

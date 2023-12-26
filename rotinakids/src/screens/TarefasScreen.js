@@ -10,24 +10,41 @@ import NewTaskCard from "../components/cards/NewTaskCard";
 import TaskCard from "../components/cards/TaskCard";
 import Screen from "../components/others/Screen";
 import { tarefas } from "../utils/Tarefas";
+import { getTasks, saveTask } from "../service/TaskService";
 
 export default function TarefasScreen({navigation}){
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
-    let ts = [];
-
-    for(let i=0; i < tarefas.length; i++){
-      let t = tarefas[i];
-
-      ts.push(<DefaultTasksCard key={t.id} title={t.title}/>);
-    }
-
-    //TODO ajustar pra buscar lista cadastrada em cache
-    ts.push(<TaskCard key={'asdasda'} item={{id:'asdasda',title:'teste',value:10}}/>);
-
-    setTasks(ts);
+    init();
   }, []);
+
+  const init = () => {
+    getTasks().then((tks) => {
+      let ts = [];
+
+      for(let i=0; i < tarefas.length; i++){
+        ts.push(<DefaultTasksCard key={tarefas[i].id} title={tarefas[i].title}/>);
+      }
+
+      for(let i=0; i<tks.length; i++){
+        ts.push(
+          <TaskCard key={tks[i].id} item={tks[i]} 
+              onSave={handleSave} onExclude={handleExclude}/>
+        );  
+      }
+      
+      setTasks(ts);
+    });
+  }
+
+  const handleSave = (task) => {
+    saveTask(task).then((ts) => init());
+  }
+
+  const handleExclude = (taskId) => {
+    delTask(taskId).then(() => init());
+  }
 
   return (
     <Screen navigation={navigation} label='Tarefas' 
@@ -39,7 +56,7 @@ export default function TarefasScreen({navigation}){
               ListHeaderComponent={<View style={styles.topFoot}/>}
               ListFooterComponent={
                 <>
-                  <NewTasksCard />
+                  <NewTaskCard onSave={handleSave}/>
 
                   <View style={styles.topFoot}/>
                 </>

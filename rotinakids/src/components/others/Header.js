@@ -12,15 +12,29 @@ import {Colors} from '../../utils/Colors';
 import ColorModal from '../modals/ColorModal';
 import IconButton from '../buttons/IconButton';
 import HeaderTitle from './HeaderTitle';
+import { saveColor } from '../../service/ColorService';
 
+export default function Header({
+                            navigation, 
+                            label=null, 
+                            showActions=false,
+                            onChangeColor=(c)=>null
+                          }) {
 
-export default function Header({navigation, label=null, showActions=false}) {
   const [showModal, setShowModal] = useState(false);
+
+  const handleColorSelection = (color) => {
+    saveColor({color:color});
+
+    onChangeColor(color);
+
+    setShowModal(!showModal);
+  }
 
   const renderModal = () => {
     if(showModal === true){
       return (
-        <ColorModal onSelection={()=>null} 
+        <ColorModal onSelection={handleColorSelection} 
             onClose={() => setShowModal(!showModal)}/>
       )
     } else {

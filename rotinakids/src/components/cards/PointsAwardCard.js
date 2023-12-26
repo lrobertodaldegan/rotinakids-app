@@ -1,8 +1,9 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
     StyleSheet,
     Dimensions,
     View,
+    ToastAndroid,
 }from 'react-native';
 import { Colors } from '../../utils';
 import Label from '../others/Label';
@@ -14,11 +15,31 @@ import DisableButton from '../buttons/DisableButton';
 export default function PointsAwardCard({
                                   title,
                                   subtitle, 
-                                  placeholder, 
+                                  placeholder,
+                                  item=null, 
+                                  onChange=(val)=>null,
                                   onSave=(val)=>null,
                                   onDisable=(val)=>null
                                 }) {
-  const [val, setVal] = useState(null);
+  const [disabled, setDisabled] = useState(item?.disabled);
+
+  const handleSave = () => {
+    onSave({value:item?.value, disabled:disabled === true});
+
+    ToastAndroid.show('Recompensa salva!', ToastAndroid.SHORT);
+  }
+
+  const handleDisable = () => {
+    let dis = !disabled;
+
+    setDisabled(dis);
+
+    onDisable({value:item?.value, disabled:dis === true});
+
+    ToastAndroid.show(
+          `Recompensa por pontos ${dis === true ? 'desabilitada' : 'habilitada'}!`, 
+          ToastAndroid.SHORT);
+  }
 
   return (
     <Card content={
@@ -30,12 +51,12 @@ export default function PointsAwardCard({
         <InlineInput labelBefore='Concedida a cada' 
             labelAfter='pontos' 
             placeholder={placeholder}
-            value={val} onChange={(txt) => setVal(txt)}/>
+            value={item?.value} onChange={onChange}/>
 
         <View style={styles.btnWrap}>
-          <SaveButton onPress={() => onSave(val)}/>
+          <SaveButton onPress={handleSave}/>
 
-          <DisableButton onPress={() => onDisable(val)}/>
+          <DisableButton onPress={handleDisable}/>
         </View>
       </>
     }/>
