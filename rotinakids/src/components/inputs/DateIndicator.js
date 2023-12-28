@@ -1,41 +1,59 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
     StyleSheet,
     View,
     Dimensions,
 }from 'react-native';
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import Label from "../others/Label";
 import { Colors } from '../../utils';
-import { AbDays } from '../../utils/Days';
+import { completeDateLabel } from '../../utils/Days';
+import IconButton from '../buttons/IconButton';
 
 export default function DateIndicator({
                               onChange=(val)=>null
                             }) {
-  const [dt, setDt] = useState(new Date());
+  const [dt, setDt] = useState(null);
+  const [lbl, setLbl] = useState('');
 
-  const renderLabel = () => {
-    if(dt && dt !== null){
-      let y = `${dt.getFullYear()}`;
-      y = `${y[2]}${y[3]}`;
+  useEffect(() => {
+    let d = new Date();
+    
+    setDt(d);
+    setLbl(buildLabel(d));
+  }, []);
 
-      return `${AbDays[dt.getDay()]} - ${dt.getDate()}/${dt.getMonth() + 1}/${y}`;
-    }
+  const buildLabel = (d) => {
+    if(d && d !== null)
+      return completeDateLabel(d);
 
     return '';
   }
 
+  const change = (days) => {
+    if(dt && dt !== null){
+      let d = dt;
+
+      d.setDate(dt.getDate() + days);
+
+      setDt(d);
+
+      setLbl(buildLabel(d));
+
+      onChange(d);
+    }
+  }
+
   return (
-    <View style={styles.topWrap} elevation={2}>
-      <FontAwesomeIcon icon={faArrowLeft} size={14}
+    <View style={styles.topWrap} elevation={1}>
+      <IconButton icon={faArrowLeft} iconSize={14} 
+          style={styles.topLbl} onPress={()=>change(-1)}/>
+
+      <Label value={lbl} size={12}
           style={styles.topLbl}/>
 
-      <Label value={renderLabel()} size={14}
-          style={styles.topLbl}/>
-
-      <FontAwesomeIcon icon={faArrowRight} size={14}
-          style={styles.topLbl}/>
+      <IconButton icon={faArrowRight} iconSize={14} 
+          style={styles.topLbl} onPress={()=>change(1)}/>
     </View>
   )
 }
@@ -45,16 +63,22 @@ const screen = Dimensions.get('screen');
 const styles = StyleSheet.create({
   topWrap:{
     flex:3,
-    flexDirection:'row',
-    marginHorizontal:screen.width * 0.3,
-    overflow:"visible",
-    backgroundColor:Colors.white,
-    alignItems:"center",
-    justifyContent:"space-between",
+    zIndex:21,
     padding:5,
-    borderRadius:5
+    borderRadius:5,
+    overflow:"visible",
+    flexDirection:'row',
+    position:'absolute',
+    alignItems:"center",
+    top:screen.height * 0.14,
+    left:0,
+    right:0,
+    backgroundColor:Colors.white,
+    justifyContent:"space-between",
+    marginHorizontal:screen.width * 0.3,
   },
   topLbl:{
-    color:Colors.gray
+    color:Colors.gray,
+    marginHorizontal:5,
   },
 });

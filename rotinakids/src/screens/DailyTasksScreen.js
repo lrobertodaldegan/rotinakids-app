@@ -6,27 +6,28 @@ import {
   View,
   StyleSheet,
   Dimensions,
+  ToastAndroid,
 } from 'react-native';
 import TaskListItemCard from "../components/cards/TaskListItemCard";
-import DateIndicator from "../components/inputs/DateIndicator";
-import Label from "../components/others/Label";
 import Screen from "../components/others/Screen";
-import { getTasks } from "../service/TaskService";
-import { Colors } from "../utils";
+import { getDailyTasks, getTasks } from "../service/TaskService";
+import { dateLabel } from "../utils/Days";
 import { tarefas } from "../utils/Tarefas";
 
 export default function DailyTasksScreen({navigation, route}){
 
   const [tasks, setTasks] = useState([]);
+  const [dt, setDt] = useState(new Date());
 
   const {child} = route.params;
+
+  const day = dateLabel(dt);
 
   useEffect(() => {
     init();
   }, []);
 
   const init = () => {
-    //TODO load by child and date to pre-load old selections/dates and points
     getTasks().then((ts) => {
       let at = [...tarefas];
 
@@ -34,25 +35,55 @@ export default function DailyTasksScreen({navigation, route}){
         at = [...at, ...ts];
         
       setTasks(at);
+
+      getDailyTasks(day, child?.id).then((scores) => {
+        for(let i=0; i<at.length;i++){
+          at[i].score = null;
+
+          let tId = at[i].id;
+
+          let ts = scores.filter((s) => s.taskId === tId);
+
+          if(ts && ts !== null && ts.length > 0){
+            ts = ts[0];
+
+            at[i].score = ts.score;
+          }
+        }
+      });
     });
+  }
+
+  const handleComplete = () => {
+    getDailyTasks(day, child?.id).then((scores) => {
+      let dayComplete = scores.length === tasks.length;
+
+      if(dayComplete === true){
+        ToastAndroid.show('🥳 Tarefas completas!!!', ToastAndroid.SHORT);
+      
+        
+        //TODO processar novas medalhas. Criar mecanismo de verificação
+      }
+    });
+
   }
 
   return (
     <Screen navigation={navigation} label={child?.name}
-        showHeaderActions={true} avatarId={child.avatarId}
-        content={
+        showHeaderActions={true} avatarId={child?.avatarId}
+        dateSelectable={true} onChangeDate={setDt}
+        content={ 
           <FlatList
-              ListHeaderComponent={
-                <View style={styles.topFoot}>
-                  <DateIndicator onChange={()=>null}/>
-                </View>
-              }
+              ListHeaderComponent={<View style={styles.topFoot}/>}
               data={tasks}
               keyExtractor={(item) => item.id}
               renderItem={({item}) => {
                 return (
                   <TaskListItemCard taskId={item.id} 
+                      childId={child?.id} day={day} 
+                      preSelection={item.score}
                       label={item.title} value={item.value}
+                      onConclude={handleComplete}
                   />
                 )
               }}
@@ -68,9 +99,6 @@ const screen = Dimensions.get('screen');
 
 const styles = StyleSheet.create({
   topFoot:{
-    flexDirection:'row',
-    height:screen.height * 0.195,
-    alignItems:"flex-end",
-    paddingBottom:6,
+    height:screen.height * 0.18,
   },
 });

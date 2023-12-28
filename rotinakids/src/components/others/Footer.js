@@ -14,7 +14,7 @@ import LogoButton from '../buttons/LogoButton';
 export default function Footer({navigation, label}) {
   return (
     <View style={styles.wrap}>
-        <View style={styles.circle}>
+        <View style={styles.circle} elevation={1}>
           <LogoButton navigation={navigation} label='Início'/>
         </View>
 
@@ -54,6 +54,8 @@ const styles = StyleSheet.create({
     height:80,
     width:80,
     borderRadius:50,
+    borderWidth:1,
+    borderColor:Colors.lighterGray,
     alignItems:'center',
     justifyContent:"center",
     backgroundColor:Colors.white,

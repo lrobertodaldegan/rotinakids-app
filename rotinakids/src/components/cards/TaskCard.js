@@ -3,6 +3,7 @@ import {
     StyleSheet,
     Dimensions,
     View,
+    ToastAndroid,
 }from 'react-native';
 import { Colors } from '../../utils';
 import Card from './Card';
