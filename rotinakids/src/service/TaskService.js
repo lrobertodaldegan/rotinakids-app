@@ -118,6 +118,7 @@ const getDailyTasks = async (day, childId) => {
 }
 
 export {
+  KEY_SCORE,
   getTasks,
   saveTask,
   delTask,
