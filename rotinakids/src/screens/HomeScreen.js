@@ -10,6 +10,7 @@ import NewChildCard from "../components/cards/NewChildCard";
 import Screen from "../components/others/Screen";
 import ChildCard from "../components/cards/ChildCard";
 import { getChildren, saveChild } from "../service/ChildService";
+import AdBanner from "../components/others/AdBanner";
 
 export default function HomeScreen({navigation}){
 
@@ -44,7 +45,13 @@ export default function HomeScreen({navigation}){
                 <ChildCard navigation={navigation} child={item} 
                     onSave={handleSave}/>}
               ListEmptyComponent={<></>}
-              ListFooterComponent={<NewChildCard onSave={handleSave}/>}
+              ListFooterComponent={
+                <>
+                  <NewChildCard onSave={handleSave}/>
+
+                  <AdBanner />
+                </>
+              }
           />
         }
     />
@@ -55,6 +62,6 @@ const screen = Dimensions.get('screen');
 
 const styles = StyleSheet.create({
   topFoot:{
-    height:screen.height * 0.17
+    height:screen.height * 0.13
   }
 });

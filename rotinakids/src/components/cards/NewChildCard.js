@@ -8,6 +8,8 @@ import Card from './Card';
 import SaveButton from '../buttons/SaveButton';
 import ChildInputs from '../inputs/ChildInputs';
 import { avatares } from '../../utils/Avatares';
+import { Colors } from '../../utils';
+import Label from '../others/Label';
 
 export default function NewChildCard({onSave=(val)=>null}) {
 
@@ -32,6 +34,8 @@ export default function NewChildCard({onSave=(val)=>null}) {
   return (
     <Card content={
       <>
+      <Label value={`Novo filho`} size={12} style={styles.topLbl}/>
+
         <ChildInputs name={name} idade={idade} avatar={avatar}
             onChangeName={setName} onChangeIdade={setIdade} 
             onChangeAvatar={setAvatar}/>
@@ -53,5 +57,10 @@ const styles = StyleSheet.create({
     paddingHorizontal:screen.width * 0.1,
     paddingVertical:10,
     justifyContent:'center'
+  },
+  topLbl:{
+    color:Colors.gray,
+    marginVertical:10,
+    textAlign:'center'
   },
 });

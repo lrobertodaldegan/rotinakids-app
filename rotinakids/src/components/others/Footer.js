@@ -36,7 +36,7 @@ const screen = Dimensions.get('screen');
 const styles = StyleSheet.create({
   wrap:{
     position:'absolute',
-    bottom:0,
+    bottom:screen.height * 0.052,
     backgroundColor:'transparent'
   },
   ctnl:{

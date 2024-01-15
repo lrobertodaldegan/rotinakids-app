@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 import InsigniaCard from "../components/cards/InsigniaCard";
 import InsigniaListItemCard from "../components/cards/InsigniaListItemCard";
+import AdBanner from "../components/others/AdBanner";
 import Screen from "../components/others/Screen";
 import { insignias } from "../utils/Insignias";
 
@@ -31,7 +32,7 @@ export default function InsigniasScreen({navigation}){
                       label={item.label}/>
                 )
               }}
-              ListFooterComponent={<View style={styles.topFoot}/>}
+              ListFooterComponent={<AdBanner />}
           />
         }
     />
@@ -42,6 +43,6 @@ const screen = Dimensions.get('screen');
 
 const styles = StyleSheet.create({
   topFoot:{
-    height:screen.height * 0.17
+    height:screen.height * 0.13
   }
 });

@@ -74,8 +74,10 @@ const saveDailyTask = async (day, childId, task) => {
 
   objs = JSON.parse(objs);
 
+  console.log(objs);
+
   if(objs && objs !== null && objs.length > 0){
-      let obj = objs.filter((d) => d.id === task.id);
+      let obj = objs.filter((d) => d.taskId === task.taskId);
 
       if(obj && obj !== null && obj.length > 0){        
         objs.splice(objs.indexOf(obj[0]), 1);

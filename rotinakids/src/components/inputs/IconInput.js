@@ -7,6 +7,7 @@ import {
     View,
 }from 'react-native';
 import {Colors} from '../../utils/Colors';
+import Label from '../others/Label';
 
 export default function IconInput({
                               label='', 
@@ -17,6 +18,7 @@ export default function IconInput({
                               placeholderColor=Colors.gray,
                               maxLength=null,
                               multiLine=true,
+                              showLabelOnSide=false,
                               onChange=(val)=>null
                             }) {
   return (
@@ -33,6 +35,10 @@ export default function IconInput({
           maxLength={maxLength}
           multiline={multiLine}
       />
+
+      <Label value={showLabelOnSide === true ? `(${label})` : ''}
+          style={style}/>
+
     </View>
   )
 }

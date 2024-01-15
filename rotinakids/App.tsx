@@ -15,7 +15,7 @@ import DailyTasksScreen from './src/screens/DailyTasksScreen';
 const Stack = createNativeStackNavigator();
 
 const ScreenOptions = {
-  headerShown: false,
+  headerShown: false
 }
 
 export default function App(): JSX.Element {

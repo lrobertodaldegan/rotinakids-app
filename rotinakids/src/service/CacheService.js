@@ -8,6 +8,18 @@ const CacheService = {
       console.log(e);
     }
   },
+  getKeysByPrefix: async (keyPrefix) => {
+    try{
+      let keys = await AsyncStorage.getAllKeys();
+
+      if(keys && keys?.length > 0)
+        return keys.filter((k) => k.startsWith(keyPrefix));
+    
+      return [];
+    } catch(e){
+      console.log(e);
+    }
+  },
   getAllByKeyPrefix: async (keyPrefix) => {
     try{
       let keys = await AsyncStorage.getAllKeys();

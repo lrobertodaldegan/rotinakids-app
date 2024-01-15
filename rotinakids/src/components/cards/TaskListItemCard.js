@@ -11,8 +11,7 @@ import UndoButton from '../buttons/UndoButton';
 import Label from '../others/Label';
 import Card from './Card';
 import { saveDailyTask } from '../../service/TaskService';
-
-const options = ['Não fez', 'Pode melhorar', 'Perfeito!'];
+import { scoreOptions } from '../../service/ScoreService';
 
 export default function TaskListItemCard({
                                       day,
@@ -34,9 +33,14 @@ export default function TaskListItemCard({
     if(newSlctn && newSlctn !== null){
       setSelection(newSlctn);
 
+      let ptsMade = newSlctn === scoreOptions[2] ? value : value * 0.5;
+
       let task = {
         taskId:taskId,
-        score: newSlctn
+        score: newSlctn,
+        points: newSlctn === scoreOptions[0] ? 0 : ptsMade,
+        childId: childId,
+        title:label,
       };
       
       saveDailyTask(day, childId, task)
@@ -47,23 +51,23 @@ export default function TaskListItemCard({
   const renderLayout = () => {
     if(selection && selection !== null) {
 
-      let ptsMade = selection === options[2] ? value : value * 0.5;
+      let ptsMade = selection === scoreOptions[2] ? value : value * 0.5;
       
-      let lbl = `Ganhou ${selection === options[2] ? '' : 'só'} ${ptsMade} ponto(s)!`
+      let lbl = `Ganhou ${selection === scoreOptions[2] ? '' : 'só'} ${ptsMade} ponto(s)!`
       
-      let iLbl = selection === options[2] ? ' :)' : ' :/';
+      let iLbl = selection === scoreOptions[2] ? ' :)' : ' :/';
 
-      let ico  = selection === options[1] ? faStarHalf : faStar;
+      let ico  = selection === scoreOptions[1] ? faStarHalf : faStar;
 
-      if(selection === options[0]){
+      if(selection === scoreOptions[0]){
         lbl = `Não ganhou pontos!`;
       
         iLbl= ' :(';
       }
       
-      let stl = selection === options[0] ? {} : styles.ip;
+      let stl = selection === scoreOptions[0] ? {} : styles.ip;
 
-      let lblStl = selection === options[0] ? styles.lblGray : styles.lblBPink;
+      let lblStl = selection === scoreOptions[0] ? styles.lblGray : styles.lblBPink;
 
       return (
         <>
@@ -91,14 +95,14 @@ export default function TaskListItemCard({
           </View>
 
           <View style={styles.mid}>
-            <IconButton icon={faStar} label={options[0]}
-                onPress={() => conclude(options[0])}/>
+            <IconButton icon={faStar} label={scoreOptions[0]}
+                onPress={() => conclude(scoreOptions[0])}/>
 
-            <IconButton icon={faStarHalf} label={options[1]} 
-                onPress={() => conclude(options[1])}/>
+            <IconButton icon={faStarHalf} label={scoreOptions[1]} 
+                onPress={() => conclude(scoreOptions[1])}/>
 
-            <IconButton icon={faStar} label={options[2]}
-                onPress={() => conclude(options[2])} 
+            <IconButton icon={faStar} label={scoreOptions[2]}
+                onPress={() => conclude(scoreOptions[2])} 
                 iconStyle={styles.ip}/>
           </View>
         </>

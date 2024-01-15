@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     flexDirection:'row',
     position:'absolute',
     alignItems:"center",
-    top:screen.height * 0.14,
+    top:screen.height * 0.095,
     left:0,
     right:0,
     backgroundColor:Colors.white,

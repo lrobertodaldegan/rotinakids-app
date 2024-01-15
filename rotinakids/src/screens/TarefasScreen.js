@@ -11,6 +11,7 @@ import TaskCard from "../components/cards/TaskCard";
 import Screen from "../components/others/Screen";
 import { tarefas } from "../utils/Tarefas";
 import { getTasks, saveTask } from "../service/TaskService";
+import AdBanner from "../components/others/AdBanner";
 
 export default function TarefasScreen({navigation}){
   const [tasks, setTasks] = useState([]);
@@ -58,7 +59,7 @@ export default function TarefasScreen({navigation}){
                 <>
                   <NewTaskCard onSave={handleSave}/>
 
-                  <View style={styles.topFoot}/>
+                  <AdBanner />
                 </>
               }
           />
@@ -71,6 +72,6 @@ const screen = Dimensions.get('screen');
 
 const styles = StyleSheet.create({
   topFoot:{
-    height:screen.height * 0.17
+    height:screen.height * 0.13
   }
 });

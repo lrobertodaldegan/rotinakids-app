@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 import InputAwardCard from "../components/cards/InputAwardCard";
 import PointsAwardCard from "../components/cards/PointsAwardCard";
+import AdBanner from "../components/others/AdBanner";
 import Screen from "../components/others/Screen";
 import { 
   getDailyReward, 
@@ -122,7 +123,7 @@ export default function RecompensasScreen({navigation}){
                 onDisable={(obj) => handleSave('p', obj)}
             />
 
-            <View style={styles.topFoot}/>
+            <AdBanner />
           </ScrollView>
         }
     />
@@ -133,6 +134,6 @@ const screen = Dimensions.get('screen');
 
 const styles = StyleSheet.create({
   topFoot:{
-    height:screen.height * 0.17
+    height:screen.height * 0.13
   }
 });

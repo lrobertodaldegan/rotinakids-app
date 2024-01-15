@@ -57,11 +57,11 @@ export default function Header({
   return (
     <>
       <View style={styles.ctn}>
-        <BannerAd
+        {/* <BannerAd
             unitId={adUnitId}
             size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
             requestOptions={{requestNonPersonalizedAdsOnly: false,}}
-        />
+        /> */}
 
         <View style={styles.ctnl} elevation={3}>
           <HeaderTitle navigation={navigation}
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     ctn:{
       position:'absolute',
       backgroundColor:'transparent',
-      top:0,
+      top:screen.height * 0.025,
       zIndex:10
     },
     ctnl:{

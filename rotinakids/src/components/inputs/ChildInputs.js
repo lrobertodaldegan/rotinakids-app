@@ -85,13 +85,14 @@ export default function ChildInputs({
         {renderAvatar()}
 
         <View>
-          <IconInput label='Novo filho'
+          <IconInput label='Nome'
               multiLine={false}
               placeholderColor={Colors.pinker}
               onChange={onChangeName} value={name}
               style={styles.input}/>
 
           <IconInput label='Idade'
+              showLabelOnSide={idade && idade !== null}
               iconColor={Colors.gray}
               maxLength={2} multiLine={false}
               onChange={onChangeIdade} value={idade}
@@ -136,6 +137,7 @@ const styles = StyleSheet.create({
   idadeInput:{
     fontSize:14,
     color:Colors.gray,
+    textAlign:'center'
   },
   img:{
     height:screen.height * 0.08,

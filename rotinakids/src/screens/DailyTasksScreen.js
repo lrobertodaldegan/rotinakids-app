@@ -1,5 +1,3 @@
-import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import React, {useEffect, useState} from "react";
 import {
   FlatList,
@@ -9,7 +7,9 @@ import {
   ToastAndroid,
 } from 'react-native';
 import TaskListItemCard from "../components/cards/TaskListItemCard";
+import AdBanner from "../components/others/AdBanner";
 import Screen from "../components/others/Screen";
+import { handleMedalGiven } from "../service/ScoreService";
 import { getDailyTasks, getTasks } from "../service/TaskService";
 import { dateLabel } from "../utils/Days";
 import { tarefas } from "../utils/Tarefas";
@@ -59,10 +59,13 @@ export default function DailyTasksScreen({navigation, route}){
       let dayComplete = scores.length === tasks.length;
 
       if(dayComplete === true){
-        ToastAndroid.show('🥳 Tarefas completas!!!', ToastAndroid.SHORT);
+        ToastAndroid.show('Tarefas completas!!! 🥳', ToastAndroid.SHORT);
       
-        
-        //TODO processar novas medalhas. Criar mecanismo de verificação
+        handleMedalGiven(child?.id).then((newMedals) => {
+          if(newMedals && newMedals !== null && newMedals.length > 0){
+            //TODO exibir modal com medalhas ganhas
+          }
+        });
       }
     });
 
@@ -88,7 +91,7 @@ export default function DailyTasksScreen({navigation, route}){
                 )
               }}
               ListEmptyComponent={<></>}
-              ListFooterComponent={<View style={styles.topFoot}/>}
+              ListFooterComponent={<AdBanner />}
           />
         }
     />
@@ -99,6 +102,6 @@ const screen = Dimensions.get('screen');
 
 const styles = StyleSheet.create({
   topFoot:{
-    height:screen.height * 0.18,
+    height:screen.height * 0.13,
   },
 });
