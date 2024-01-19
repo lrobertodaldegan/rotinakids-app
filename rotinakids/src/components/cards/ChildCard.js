@@ -11,6 +11,7 @@ import { avatares } from '../../utils/Avatares';
 import ShowHideButton from '../buttons/ShowHideButton';
 import Label from '../others/Label';
 import ChildInsignias from '../others/ChildInsignias';
+import { getRewardsByChild } from '../../service/RewardService';
 
 export default function ChildCard({navigation, child, onSave=(val)=>null}) {
 
@@ -31,8 +32,10 @@ export default function ChildCard({navigation, child, onSave=(val)=>null}) {
     if(ca && ca !== null && ca.length > 0)
       setAvatar(ca[0]);
 
-    //TODO load points qtd
-    //TODO load rewards qtd
+    getRewardsByChild(child.id).then((s) => {
+      setPoints(s.points);
+      setRewards(s.rewards);
+    });
   }, []);
 
   const handleShowHide = () => {

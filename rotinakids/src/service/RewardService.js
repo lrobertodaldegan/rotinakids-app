@@ -1,4 +1,5 @@
 import CacheService from "./CacheService";
+import { getScore } from "./ScoreService";
 
 const KEY_D = '@reward_d';
 const KEY_W = '@reward_w';
@@ -55,6 +56,21 @@ const savePointsReward = async (obj) => {
   return save(KEY_P, obj);
 }
 
+const getRewardsByChild = async (childId) => {
+  const score = await getScore(childId);
+
+  let daysRewards = score.qtdDias + Math.floor(score.qtdDias / 7) + Math.floor(score.qtdDias / 30);
+
+  let pr = await getPointsReward();
+
+  let pointsRewards = Math.floor(score.pontuacao / new Number(pr ? pr.value : 0));
+
+  return {
+    rewards: Math.floor(daysRewards + pointsRewards),
+    points: score.pontuacao
+  };
+}
+
 export {
   getDailyReward,
   getWeeklyReward,
@@ -64,4 +80,5 @@ export {
   saveWeeklyReward,
   saveMonthlyReward,
   savePointsReward,
+  getRewardsByChild,
 }

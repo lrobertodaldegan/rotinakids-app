@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from "react";
-import { getByChild } from "../../service/InsigniasService";
 import { StyleSheet, View } from "react-native";
+import { getMedalsByChild } from "../../service/ScoreService";
 import Insignia from "./Insignia";
 
 export default function ChildInsignias({child}) {
   const [insignias, setInsignias] = useState([]);
 
   useEffect(() => {
-    getByChild(child.id).then(is => {
+    getMedalsByChild(child.id).then(is => {
       setInsignias(is);
     });
   }, []);

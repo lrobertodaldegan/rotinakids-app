@@ -75,7 +75,7 @@ const handleMedalGiven = async (childId) => {
   let scoreOverall = await getScore(childId);
 
   let newMedals = [];
-  //TODO implementar a regra de cada medalha
+  
   for(let i=0; i>medalsValidations.length; i++){
     let medal = await medalsValidations[i].wood(scoreOverall);
 
@@ -140,8 +140,33 @@ const giveMedal = async (newObj, childId) => {
   return objs;
 }
 
+const getMedalsByChild = async () => {
+  let key = `${MEDAL_KEY}${childId}`;
+
+  let rs = await CacheService.get(key);
+
+  if(rs && rs != null){
+    rs = JSON.parse(rs);
+
+    rs.sort((a, b) => {
+        if(a.id > b.id)
+            return 1;
+        
+        if(a.id < b.id)
+            return -1;
+
+        return 0;
+    });
+
+    return rs;
+  }
+
+  return [];
+}
+
 export {
   scoreOptions,
   getScore,
   handleMedalGiven,
+  getMedalsByChild,
 }
