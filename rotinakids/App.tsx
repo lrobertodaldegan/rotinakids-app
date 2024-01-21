@@ -11,6 +11,7 @@ import InsigniasScreen from './src/screens/InsigniasScreen';
 import TarefasScreen from './src/screens/TarefasScreen';
 import RecompensasScreen from './src/screens/RecompensasScreen';
 import DailyTasksScreen from './src/screens/DailyTasksScreen';
+import CalendarScreen from './src/screens/CalendarScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -36,6 +37,7 @@ export default function App(): JSX.Element {
           <Stack.Screen name="Tarefas" component={TarefasScreen} options={ScreenOptions} />
           <Stack.Screen name="Recompensas" component={RecompensasScreen} options={ScreenOptions} />
           <Stack.Screen name="Daily" component={DailyTasksScreen} options={ScreenOptions} />
+          <Stack.Screen name="Calendar" component={CalendarScreen} options={ScreenOptions} />
         </Stack.Navigator>
       </NavigationContainer>
     </>

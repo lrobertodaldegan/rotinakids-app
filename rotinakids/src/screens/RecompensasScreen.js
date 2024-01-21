@@ -44,8 +44,12 @@ export default function RecompensasScreen({navigation}){
       if(tipo === 'm')
         saveMonthlyReward(recompensa).then((r) => setRMensal(r));
 
-      if(tipo === 'p')
+      if(tipo === 'p'){
+        if(recompensa.value && recompensa.value < 0)
+          recompensa.value = 0;
+
         savePointsReward(recompensa).then((r) => setRPontos(r));
+      }
     }
   }
 
@@ -73,14 +77,18 @@ export default function RecompensasScreen({navigation}){
 
       setRMensal(m);
     }
+  }
 
-    if(tipo === 'p'){
-      let p = {...rPontos};
+  const handlePointsChange = (field, v) => {
+    let p = {...rPontos};
 
-      p.value = title;
+    if(field === 'v')
+      p.value = v;
 
-      setRPontos(p);
-    }
+    if(field === 't')
+      p.title = v;
+
+    setRPontos(p);
   }
 
   return (
@@ -118,7 +126,8 @@ export default function RecompensasScreen({navigation}){
             <PointsAwardCard title={'Recompensa por pontos'}
                 subtitle={'Toque para definir uma recompensa por pontos'}
                 placeholder={'0'} item={rPontos}
-                onChange={(v) => handleChange('p', v)}
+                onChangeTitle={(v) => handlePointsChange('t', v)}
+                onChangeValue={(v) => handlePointsChange('v', v)}
                 onSave={(obj) => handleSave('p', obj)}
                 onDisable={(obj) => handleSave('p', obj)}
             />

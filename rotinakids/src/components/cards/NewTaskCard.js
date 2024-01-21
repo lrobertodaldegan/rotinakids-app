@@ -10,24 +10,30 @@ import Card from './Card';
 import SaveButton from '../buttons/SaveButton';
 import PointsInput from '../inputs/PointsInput';
 import Input from '../inputs/Input';
+import Label from '../others/Label';
 
 export default function NewTaskCard({
                                   onSave=(val)=>null,
                                 }) {
   const [title, setTitle] = useState(null);
   const [val, setVal] = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     setVal(10);
   }, []);
 
   const handleSave = () => {
-    onSave({id:title, title:title, value:val});
+    if(title && title !== null){
+      onSave({id:title, title:title, value:val});
 
-    setTitle(null);
-    setVal(10);
+      setTitle(null);
+      setVal(10);
 
-    ToastAndroid.show('Tarefa salva!', ToastAndroid.SHORT);
+      ToastAndroid.show('Tarefa salva!', ToastAndroid.SHORT);
+    } else {
+      setError('Dica: Informe um título antes de salvar a tarefa.');
+    }
   }
 
   return (
@@ -42,6 +48,8 @@ export default function NewTaskCard({
         <View style={styles.btnWrap}>
           <SaveButton onPress={handleSave}/>
         </View>
+
+        <Label value={error}/>
       </>
     }/>
   )

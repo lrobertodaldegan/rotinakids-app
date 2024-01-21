@@ -19,6 +19,7 @@ export default function IconInput({
                               maxLength=null,
                               multiLine=true,
                               showLabelOnSide=false,
+                              keyboardType='default',
                               onChange=(val)=>null
                             }) {
   return (
@@ -34,6 +35,7 @@ export default function IconInput({
           textBreakStrategy='simple'
           maxLength={maxLength}
           multiline={multiLine}
+          keyboardType={keyboardType}
       />
 
       <Label value={showLabelOnSide === true ? `(${label})` : ''}

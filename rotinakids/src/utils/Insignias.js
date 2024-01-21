@@ -45,9 +45,9 @@ const insignias = [
   {id:'ml', label:'Conclua sua primeira lista', icon:ml},
   {id:'fl', label:'Conclua 10 listas', icon:fl},
   {id:'bl', label:'Conclua 50 listas', icon:bl},
-  {id:'pl', label:'Conslua 100 listas', icon:pl},
-  {id:'ol', label:'Conslua 300 listas', icon:ol},
-  {id:'sl', label:'Conslua 500 listas', icon:sl},
+  {id:'pl', label:'Conclua 100 listas', icon:pl},
+  {id:'ol', label:'Conclua 300 listas', icon:ol},
+  {id:'sl', label:'Conclua 500 listas', icon:sl},
 
   {id:'md', label:'Conclua um devocional', icon:md},
   {id:'fd', label:'Conclua 7 devocionais', icon:fd},

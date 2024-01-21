@@ -51,7 +51,7 @@ export default function InputAwardCard({
         <View style={styles.btnWrap}>
           <SaveButton onPress={handleSave}/>
 
-          <DisableButton onPress={handleDisable}/>
+          {/* <DisableButton onPress={handleDisable}/> */}
         </View>
       </>
     }/>

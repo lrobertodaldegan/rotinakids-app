@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import { StyleSheet, View } from "react-native";
-import { getMedalsByChild } from "../../service/ScoreService";
+import { getMedalsByChild, handleMedalGiven } from "../../service/ScoreService";
 import Insignia from "./Insignia";
 
 export default function ChildInsignias({child}) {
@@ -8,7 +8,12 @@ export default function ChildInsignias({child}) {
 
   useEffect(() => {
     getMedalsByChild(child.id).then(is => {
-      setInsignias(is);
+      if(is && is !== null && is.length > 0){
+        setInsignias(is);
+      } else {
+        handleMedalGiven(child.id)
+        .then(setInsignias);
+      }
     });
   }, []);
 
@@ -16,10 +21,10 @@ export default function ChildInsignias({child}) {
     let ins = [];
     
     for(let i=0; i<insignias.length; i++){
-      let insigniaF = insignias.filter(i => i.id === insignias[i].id);
+      let insigniaF = insignias.filter(ins => ins.id === insignias[i].id);
       
       if(insigniaF && insigniaF !== null && insigniaF.length > 0)
-        ins.push(<Insignia insignia={insigniaF[0]} />);
+        ins.push(<Insignia key={insigniaF[0].id} insignia={insigniaF[0]} />);
     }
 
     return ins;
@@ -35,6 +40,8 @@ export default function ChildInsignias({child}) {
 const styles = StyleSheet.create({
   wrap:{
     flexDirection:'row',
-    flexWrap:"wrap"
+    flexWrap:"wrap",
+    justifyContent:'center',
+    marginHorizontal: 20
   },
 });

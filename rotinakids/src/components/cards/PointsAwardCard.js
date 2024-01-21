@@ -6,6 +6,7 @@ import {
     ToastAndroid,
 }from 'react-native';
 import { Colors } from '../../utils';
+import Input from '../inputs/Input';
 import Label from '../others/Label';
 import Card from './Card';
 import InlineInput from '../inputs/InlineInput';
@@ -17,14 +18,15 @@ export default function PointsAwardCard({
                                   subtitle, 
                                   placeholder,
                                   item=null, 
-                                  onChange=(val)=>null,
+                                  onChangeTitle=(val)=>null,
+                                  onChangeValue=(val)=>null,
                                   onSave=(val)=>null,
                                   onDisable=(val)=>null
                                 }) {
   const [disabled, setDisabled] = useState(item?.disabled);
 
   const handleSave = () => {
-    onSave({value:item?.value, disabled:disabled === true});
+    onSave({title:item?.title, value:item?.value, disabled:disabled === true});
 
     ToastAndroid.show('Recompensa salva!', ToastAndroid.SHORT);
   }
@@ -34,7 +36,7 @@ export default function PointsAwardCard({
 
     setDisabled(dis);
 
-    onDisable({value:item?.value, disabled:dis === true});
+    onDisable({title:item?.title, value:item?.value, disabled:dis === true});
 
     ToastAndroid.show(
           `Recompensa por pontos ${dis === true ? 'desabilitada' : 'habilitada'}!`, 
@@ -46,17 +48,18 @@ export default function PointsAwardCard({
       <>
         <Label style={styles.title} size={18} value={title}/>
 
-        <Label size={14} value={subtitle} style={styles.txt}/>
+        <Input label={subtitle}
+            value={item?.title} onChange={onChangeTitle}/>
       
         <InlineInput labelBefore='Concedida a cada' 
             labelAfter='pontos' 
             placeholder={placeholder}
-            value={item?.value} onChange={onChange}/>
+            value={item?.value} onChange={onChangeValue}/>
 
         <View style={styles.btnWrap}>
           <SaveButton onPress={handleSave}/>
 
-          <DisableButton onPress={handleDisable}/>
+          {/* <DisableButton onPress={handleDisable}/> */}
         </View>
       </>
     }/>

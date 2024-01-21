@@ -11,6 +11,7 @@ import SaveButton from '../buttons/SaveButton';
 import PointsInput from '../inputs/PointsInput';
 import ExcludeButton from '../buttons/ExcludeButton';
 import IconInput from '../inputs/IconInput';
+import Label from '../others/Label';
 
 export default function TaskCard({
                                   item={id:0,title:'',value:10},
@@ -19,6 +20,7 @@ export default function TaskCard({
                                 }) {
   const [title, setTitle] = useState(null);
   const [val, setVal] = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     setVal(item.value);
@@ -26,9 +28,13 @@ export default function TaskCard({
   }, []);
 
   const handleSave = () => {
-    onSave({id:title, title:title, value:val});
+    if(title && title !== null){
+      onSave({id:title, title:title, value:val});
 
-    ToastAndroid.show('Tarefa salva!', ToastAndroid.SHORT);
+      ToastAndroid.show('Tarefa salva!', ToastAndroid.SHORT);
+    } else {
+      setError('Dica: Informe um título antes de salvar a tarefa.');
+    }
   }
 
   const handleExclude = () => {
@@ -47,12 +53,12 @@ export default function TaskCard({
         <PointsInput value={val} onChange={(v) => setVal(v)}/>
 
         <View style={styles.btnWrap}>
-          <SaveButton 
-              onPress={handleSave}/>
+          <SaveButton onPress={handleSave}/>
 
-          <ExcludeButton 
-              onPress={handleExclude}/>
+          <ExcludeButton onPress={handleExclude}/>
         </View>
+
+        <Label value={error}/>
       </>
     }/>
   )

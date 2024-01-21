@@ -5,7 +5,9 @@ import {
   StyleSheet,
   Dimensions,
   ToastAndroid,
+  RefreshControl,
 } from 'react-native';
+import { useIsFocused } from "@react-navigation/native"; 
 import NewChildCard from "../components/cards/NewChildCard";
 import Screen from "../components/others/Screen";
 import ChildCard from "../components/cards/ChildCard";
@@ -15,13 +17,21 @@ import AdBanner from "../components/others/AdBanner";
 export default function HomeScreen({navigation}){
 
   const [children, setChildren] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const isFocused = useIsFocused();
 
   useEffect(() => {
     init();
-  }, []);
+  }, [isFocused]);
 
   const init = () => {
+    setChildren([]);
+    setLoading(true);
+
     getChildren().then((cs) => {
+      setLoading(false);
+    
       setChildren(cs);
     });
   }
@@ -38,6 +48,9 @@ export default function HomeScreen({navigation}){
     <Screen navigation={navigation} label='Meus filhos'
         content={
           <FlatList
+              refreshControl={
+                <RefreshControl refreshing={loading} onRefresh={() => init()}/>
+              }
               ListHeaderComponent={<View style={styles.topFoot}/>}
               data={children}
               keyExtractor={(item) => item.id}

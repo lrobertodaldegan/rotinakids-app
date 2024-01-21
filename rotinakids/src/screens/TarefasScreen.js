@@ -4,28 +4,39 @@ import {
   View,
   StyleSheet,
   Dimensions,
+  ActivityIndicator,
 } from 'react-native';
 import DefaultTasksCard from "../components/cards/DefaultTaskCard";
 import NewTaskCard from "../components/cards/NewTaskCard";
 import TaskCard from "../components/cards/TaskCard";
 import Screen from "../components/others/Screen";
 import { tarefas } from "../utils/Tarefas";
-import { getTasks, saveTask } from "../service/TaskService";
+import { getTasks, saveDefaultTask, saveTask, delTask } from "../service/TaskService";
 import AdBanner from "../components/others/AdBanner";
+import { Colors } from "../utils";
 
 export default function TarefasScreen({navigation}){
   const [tasks, setTasks] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     init();
   }, []);
 
   const init = () => {
+    setLoading(true);
+
     getTasks().then((tks) => {
       let ts = [];
 
       for(let i=0; i < tarefas.length; i++){
-        ts.push(<DefaultTasksCard key={tarefas[i].id} title={tarefas[i].title}/>);
+        ts.push(
+          <DefaultTasksCard key={tarefas[i].id} 
+              title={tarefas[i].title}
+              onSave={handleSaveDefaultTask}
+              onDisable={handleSaveDefaultTask}
+          />
+        );
       }
 
       for(let i=0; i<tks.length; i++){
@@ -36,7 +47,13 @@ export default function TarefasScreen({navigation}){
       }
       
       setTasks(ts);
+      setLoading(false);
     });
+  }
+
+  const handleSaveDefaultTask = (defaultTask) => {
+    saveDefaultTask(defaultTask.title, defaultTask)
+    .then((ts) => init());
   }
 
   const handleSave = (task) => {
@@ -47,23 +64,36 @@ export default function TarefasScreen({navigation}){
     delTask(taskId).then(() => init());
   }
 
+  const renderContent = () => {
+    if(loading === true){
+      return (
+        <>
+          <View style={styles.topFoot}/>
+          <ActivityIndicator color={Colors.pinker}/>
+        </>
+      );
+    } else {
+      return (
+        <FlatList
+            data={tasks}
+            ListEmptyComponent={<></>}
+            renderItem={({item}) => item}
+            ListHeaderComponent={<View style={styles.topFoot}/>}
+            ListFooterComponent={
+              <>
+                <NewTaskCard onSave={handleSave}/>
+
+                <AdBanner />
+              </>
+            }
+        />
+      );
+    }
+  }
+
   return (
     <Screen navigation={navigation} label='Tarefas' 
-        content={
-          <FlatList
-              data={tasks}
-              ListEmptyComponent={<></>}
-              renderItem={({item}) => item}
-              ListHeaderComponent={<View style={styles.topFoot}/>}
-              ListFooterComponent={
-                <>
-                  <NewTaskCard onSave={handleSave}/>
-
-                  <AdBanner />
-                </>
-              }
-          />
-        }
+        content={renderContent()}
     />
   );
 }

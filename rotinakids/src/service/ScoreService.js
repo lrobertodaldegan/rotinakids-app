@@ -18,8 +18,6 @@ const MEDAL_KEY = '@medals_';
 
 const getScore = async (childId) => {
   let scores = await CacheService.getAllByKeyPrefix(KEY_SCORE);
-
-  console.log(scores);
   
   let nf   = 0;
   let pm   = 0;
@@ -32,31 +30,42 @@ const getScore = async (childId) => {
   let childScore = [];
 
   if(scores && scores !== null && scores.length > 0){
+
     for(let i=0; i < scores.length; i++){
-      if(scores[i].childId === childId){
-        childScore.push(scores[i]);
+      let ss = JSON.parse(scores[i][1]);
+      
+      for(let j=0; j < ss.length; j++){
+        let s = ss[j];
 
-        pont = pont + scores[i].points;
-        qtd = qtd + 1;
+        if(s.childId === childId) {
+          childScore.push(s);
 
-        if(scoreOptions[0] === scores[i].score)
-          nf = nf + 1;
+          pont = pont + s.points;
+          qtd = qtd + 1;
 
-        if(scoreOptions[1] === scores[i].score)
-          pm = pm + 1;
+          if(scoreOptions[0] === s.score)
+            nf = nf + 1;
 
-        if(scoreOptions[2] === scores[i].score)
-          pf = pf + 1;
+          if(scoreOptions[1] === s.score)
+            pm = pm + 1;
 
-        if(scores[i].title === 'Fazer devocional')
-          devocionais = devocionais + 1;        
+          if(scoreOptions[2] === s.score)
+            pf = pf + 1;
+
+          if(s.title === 'Fazer devocional' 
+              && (scoreOptions[1] === s.score || scoreOptions[2] === s.score)){
+            devocionais = devocionais + 1;
+          }
+        }
       }
     }
-
-    let dailyKeys = await CacheService.getKeysByPrefix(KEY_SCORE);
-
-    dias = dailyKeys && dailyKeys !== null ? dailyKeys.length : 0;
   }
+
+  let dailyKeys = await CacheService.getKeysByPrefix(KEY_SCORE);
+
+  dailyKeys = dailyKeys.filter(k => k.includes(childId));
+
+  dias = dailyKeys && dailyKeys !== null ? dailyKeys.length : 0;
 
   return {
     childId:childId,
@@ -76,7 +85,7 @@ const handleMedalGiven = async (childId) => {
 
   let newMedals = [];
   
-  for(let i=0; i>medalsValidations.length; i++){
+  for(let i=0; i<medalsValidations.length; i++){
     let medal = await medalsValidations[i].wood(scoreOverall);
 
     if(medal && medal !== null)
@@ -140,7 +149,7 @@ const giveMedal = async (newObj, childId) => {
   return objs;
 }
 
-const getMedalsByChild = async () => {
+const getMedalsByChild = async (childId) => {
   let key = `${MEDAL_KEY}${childId}`;
 
   let rs = await CacheService.get(key);

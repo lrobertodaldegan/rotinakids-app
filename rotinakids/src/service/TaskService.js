@@ -1,10 +1,14 @@
+import { tarefas } from "../utils/Tarefas";
 import CacheService from "./CacheService";
 
 const KEY = '@tasks_';
+const KEY_DEFAULT = '@task_default_';
 const KEY_SCORE = '@taskscore_';
 
-const getTasks = async () => {
+const getTasks = async (getDefaultTasksToo) => {
   let rs = await CacheService.get(KEY);
+
+  let result = [];
 
   if(rs && rs != null){
     rs = JSON.parse(rs);
@@ -19,10 +23,19 @@ const getTasks = async () => {
         return 0;
     });
 
-    return rs;
+    result = rs;
   }
 
-  return [];
+  if(getDefaultTasksToo === true){
+    for(let i=0; i < tarefas.length; i++){
+      let t = await getDefaultTask(tarefas[i].title);
+      
+      if(t && t !== null)
+        result.push(t && t !== null ? t : tarefas[i]);
+    }
+  }
+
+  return result;
 }
 
 const saveTask = async (newObj) => {
@@ -49,6 +62,24 @@ const saveTask = async (newObj) => {
   return objs;
 }
 
+const saveDefaultTask = async (title, newObj) => {
+  let k = `${KEY_DEFAULT}${title}`;
+
+  await CacheService.register(k, JSON.stringify(newObj));
+
+  return newObj;
+}
+
+const getDefaultTask = async (title) => {
+  let r = await CacheService.get(`${KEY_DEFAULT}${title}`);
+
+  if(r && r !== null){
+    return JSON.parse(r);
+  }
+
+  return null;
+}
+
 const delTask = async (id) => {
   let objs = await CacheService.get(KEY);
 
@@ -73,8 +104,6 @@ const saveDailyTask = async (day, childId, task) => {
   let objs = await CacheService.get(k);
 
   objs = JSON.parse(objs);
-
-  console.log(objs);
 
   if(objs && objs !== null && objs.length > 0){
       let obj = objs.filter((d) => d.taskId === task.taskId);
@@ -126,4 +155,6 @@ export {
   delTask,
   saveDailyTask,
   getDailyTasks,
+  saveDefaultTask,
+  getDefaultTask,
 }

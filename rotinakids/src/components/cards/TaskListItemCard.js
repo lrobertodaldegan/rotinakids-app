@@ -25,8 +25,7 @@ export default function TaskListItemCard({
   const [selection, setSelection] = useState(null);
 
   useEffect(() => {
-    if(preSelection && preSelection !== null)
-      setSelection(preSelection);
+    setSelection(preSelection);
   }, []);
 
   const conclude = (newSlctn) => {

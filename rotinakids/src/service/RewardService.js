@@ -59,14 +59,23 @@ const savePointsReward = async (obj) => {
 const getRewardsByChild = async (childId) => {
   const score = await getScore(childId);
 
-  let daysRewards = score.qtdDias + Math.floor(score.qtdDias / 7) + Math.floor(score.qtdDias / 30);
+  let weeklyReward = Math.floor(score.qtdDias / 7);
+
+  let monthlyReward = Math.floor(score.qtdDias / 30);
+
+  let daysRewards = score.qtdDias + weeklyReward + monthlyReward;
 
   let pr = await getPointsReward();
 
-  let pointsRewards = Math.floor(score.pontuacao / new Number(pr ? pr.value : 0));
-
+  let pointsRewards = pr && pr !== null && pr.value > 0 
+                        ? Math.floor(score.pontuacao / new Number(pr.value))
+                        : 0;
   return {
     rewards: Math.floor(daysRewards + pointsRewards),
+    dailyRewards: score.qtdDias,
+    weeklyRewards: weeklyReward,
+    monthlyRewards: monthlyReward,
+    pointsRewards:pointsRewards,
     points: score.pontuacao
   };
 }

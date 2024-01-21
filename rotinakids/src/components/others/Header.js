@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     ctn:{
       position:'absolute',
       backgroundColor:'transparent',
-      top:screen.height * 0.025,
+      top:screen.height * 0.01,
       zIndex:10
     },
     ctnl:{

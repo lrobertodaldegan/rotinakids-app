@@ -1,36 +1,24 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import {
   TouchableHighlight,
   StyleSheet,
   View,
 }from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarDays } from '@fortawesome/free-solid-svg-icons';
 import {Colors} from '../../utils/Colors';
 import Label from '../others/Label';
 
-export default function ShowHideButton({disable=false, onPress=(show)=>null}) {
-  const [show, setShow] = useState(true);
-
-  useEffect(() => {
-    setShow(!disable);
-  }, []);
-
-  const handle = () => {
-    setShow(!show);
-
-    onPress(show);
-  }
-
+export default function CalendarButton({onPress=()=>null}) {
   return (
     <TouchableHighlight underlayColor={Colors.white} 
-        onPress={handle}>
+        onPress={onPress}>
 
       <View style={styles.wrap}>
-        <FontAwesomeIcon icon={show === true ? faEyeSlash : faEye} 
+        <FontAwesomeIcon icon={faCalendarDays} 
             style={[styles.icon]} size={16}/>
 
-        <Label value={show === true ? 'Ocultar' : 'Exibir'} 
+        <Label value={'Ver histórico'} 
             style={[styles.lbl]} size={16}/>
       </View>
 

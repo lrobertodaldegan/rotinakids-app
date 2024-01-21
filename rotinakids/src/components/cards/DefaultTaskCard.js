@@ -3,6 +3,7 @@ import {
     StyleSheet,
     Dimensions,
     View,
+    ToastAndroid,
 }from 'react-native';
 import { Colors } from '../../utils';
 import Label from '../others/Label';
@@ -10,6 +11,7 @@ import Card from './Card';
 import SaveButton from '../buttons/SaveButton';
 import ShowHideButton from '../buttons/ShowHideButton';
 import PointsInput from '../inputs/PointsInput';
+import { getDefaultTask } from '../../service/TaskService';
 
 export default function DefaultTasksCard({
                                   title, 
@@ -18,10 +20,35 @@ export default function DefaultTasksCard({
                                   onDisable=(val)=>null
                                 }) {
   const [val, setVal] = useState(null);
+  const [dis, setDis] = useState(false);
 
   useEffect(() => {
-    setVal(value);
+    getDefaultTask(title).then((t) => {
+      if(t && t !== null){
+        setVal(t.value);
+        setDis(t.disabled);
+      } else {
+        setVal(value);
+        setDis(false);
+      }
+    });
   }, []);
+
+  const handleSave = () => {
+    onSave({id:title, title:title, value:val, disabled:false});
+
+    ToastAndroid.show(`Tarefa ${title} salva!`, ToastAndroid.SHORT);
+  }
+
+  const handleDisable = () => {
+    let d = !dis;
+
+    setDis(d);
+
+    onDisable({id:title, title:title, value:val, disabled:d});
+
+    ToastAndroid.show(`Tarefa ${title} ${d === true ? 'oculta' : 'será exibida'}!`, ToastAndroid.SHORT);
+  }
 
   return (
     <Card content={
@@ -31,9 +58,9 @@ export default function DefaultTasksCard({
         <PointsInput value={val} onChange={(v) => setVal(v)}/>
 
         <View style={styles.btnWrap}>
-          <SaveButton onPress={() => onSave(val)}/>
+          <SaveButton onPress={handleSave}/>
 
-          <ShowHideButton onPress={() => onDisable(val)}/>
+          {/* <ShowHideButton disable={dis} onPress={handleDisable}/> */}
         </View>
       </>
     }/>
@@ -67,6 +94,6 @@ const styles = StyleSheet.create({
     flexWrap:'wrap',
     paddingHorizontal:screen.width * 0.1,
     paddingVertical:10,
-    justifyContent:'space-between'
+    justifyContent:'center'
   }
 });

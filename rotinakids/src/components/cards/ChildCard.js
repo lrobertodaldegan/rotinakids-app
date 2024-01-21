@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   View,
+  TouchableHighlight,
 }from 'react-native';
 import { Colors } from '../../utils';
 import Card from './Card';
@@ -11,7 +12,8 @@ import { avatares } from '../../utils/Avatares';
 import ShowHideButton from '../buttons/ShowHideButton';
 import Label from '../others/Label';
 import ChildInsignias from '../others/ChildInsignias';
-import { getRewardsByChild } from '../../service/RewardService';
+import { getDailyReward, getMonthlyReward, getPointsReward, getRewardsByChild, getWeeklyReward } from '../../service/RewardService';
+import CalendarButton from '../buttons/CalendarButton';
 
 export default function ChildCard({navigation, child, onSave=(val)=>null}) {
 
@@ -21,8 +23,22 @@ export default function ChildCard({navigation, child, onSave=(val)=>null}) {
   const [hide, setHide] = useState(false);
   const [points, setPoints] = useState(0);
   const [rewards, setRewards] = useState(0);
+  const [monthlyRewards, setMonthlyRewards] = useState(0);
+  const [weeklyRewards, setWeeklyRewards] = useState(0);
+  const [dailyRewards, setDailyRewards] = useState(0);
+  const [pointsRewards, setPointsRewards] = useState(0);
+  const [pr, setPr] = useState(null);
+  const [dr, setDr] = useState(null);
+  const [wr, setWr] = useState(null);
+  const [mr, setMr] = useState(null);
+  const [showRewardDetails, setShowRewardDetails] = useState(false);
 
   useEffect(()=>{
+    getDailyReward().then(setDr);
+    getWeeklyReward().then(setWr);
+    getMonthlyReward().then(setMr);
+    getPointsReward().then(setPr);
+
     setName(child.name);
     setIdade(child.age);
     setHide(child.hide);
@@ -33,8 +49,14 @@ export default function ChildCard({navigation, child, onSave=(val)=>null}) {
       setAvatar(ca[0]);
 
     getRewardsByChild(child.id).then((s) => {
-      setPoints(s.points);
-      setRewards(s.rewards);
+      if(s && s !== null){
+        setPoints(s.points);
+        setRewards(s.rewards);
+        setDailyRewards(s.dailyRewards);
+        setWeeklyRewards(s.weeklyRewards);
+        setMonthlyRewards(s.monthlyRewards);
+        setPointsRewards(s.pointsRewards);
+      }
     });
   }, []);
 
@@ -56,6 +78,19 @@ export default function ChildCard({navigation, child, onSave=(val)=>null}) {
     });
   }
 
+  const renderRewardDetails = () => {
+    if(showRewardDetails === true) {
+      return (
+        <View>
+          <Label value={`${dr.title}: ${dailyRewards}`} size={14} style={styles.lbl}/>
+          <Label value={`${wr.title}: ${weeklyRewards}`} size={14} style={styles.lbl}/>
+          <Label value={`${mr.title}: ${monthlyRewards}`} size={14} style={styles.lbl}/>
+          <Label value={`${pr.title}: ${pointsRewards}`} size={14} style={styles.lbl}/>
+        </View>
+      );
+    }
+  }
+
   return (
     <Card onPress={() => navigation.navigate('Daily', {child:child})} 
         content={
@@ -69,17 +104,23 @@ export default function ChildCard({navigation, child, onSave=(val)=>null}) {
 
             <ChildInsignias child={child}/>
 
-            <View style={styles.lblWrap}>
-              <Label value={`${points} pontos`} size={14} style={styles.lbl}/>
+            <TouchableHighlight underlayColor={Colors.white} 
+                onPress={() => setShowRewardDetails(!showRewardDetails)}>
+              <View style={styles.lblWrap}>
+                <Label value={`${points} pontos`} size={14} style={styles.lbl}/>
 
-              <Label value={`${rewards} recompensas`} size={14} 
-                  style={[styles.lbl, {marginLeft:15}]}/>
-            </View>
+                <Label value={`${rewards} recompensas`} size={14} 
+                    style={[styles.lbl, {marginLeft:15}]}/>              
+              </View>
+            </TouchableHighlight>
+            
+            {renderRewardDetails()}
 
             <View style={styles.btnWrap}>
               <SaveButton onPress={() => handleSave(hide)}/>
 
-              <ShowHideButton onPress={handleShowHide}/>
+              {/* <ShowHideButton onPress={handleShowHide}/> */}
+              <CalendarButton onPress={() => navigation.navigate('Calendar', {child:child})}/>
             </View>
           </>
         }

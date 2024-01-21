@@ -95,6 +95,7 @@ export default function ChildInputs({
               showLabelOnSide={idade && idade !== null}
               iconColor={Colors.gray}
               maxLength={2} multiLine={false}
+              keyboardType='numeric'
               onChange={onChangeIdade} value={idade}
               style={[styles.input, styles.idadeInput]}/>
         </View>
