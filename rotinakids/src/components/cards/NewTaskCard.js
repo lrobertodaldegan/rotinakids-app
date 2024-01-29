@@ -25,6 +25,8 @@ export default function NewTaskCard({
 
   const handleSave = () => {
     if(title && title !== null){
+      setError(null);
+      
       onSave({id:title, title:title, value:val});
 
       setTitle(null);

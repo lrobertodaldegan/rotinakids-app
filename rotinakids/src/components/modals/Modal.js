@@ -28,6 +28,7 @@ const screen = Dimensions.get('screen');
 
 const styles = StyleSheet.create({
   ctn:{
+    zIndex:25,
     alignItems:'center',
     width:screen.width - 20,
     marginLeft:10,
@@ -38,7 +39,6 @@ const styles = StyleSheet.create({
     height:screen.height - 20,
     paddingVertical:20,
     paddingHorizontal:10,
-    zIndex:20
   },
   close:{
     alignItems:'flex-end',

@@ -12,13 +12,14 @@ import Label from '../others/Label';
 export default function CalendarButton({onPress=()=>null}) {
   return (
     <TouchableHighlight underlayColor={Colors.white} 
+        style={{minHeight:30}}
         onPress={onPress}>
 
       <View style={styles.wrap}>
         <FontAwesomeIcon icon={faCalendarDays} 
             style={[styles.icon]} size={16}/>
 
-        <Label value={'Ver histórico'} 
+        <Label value={'Histórico'} 
             style={[styles.lbl]} size={16}/>
       </View>
 

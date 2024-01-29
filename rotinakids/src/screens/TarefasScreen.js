@@ -52,16 +52,15 @@ export default function TarefasScreen({navigation}){
   }
 
   const handleSaveDefaultTask = (defaultTask) => {
-    saveDefaultTask(defaultTask.title, defaultTask)
-    .then((ts) => init());
+    saveDefaultTask(defaultTask.title, defaultTask);
   }
 
   const handleSave = (task) => {
-    saveTask(task).then((ts) => init());
+    saveTask(task).then((s) => init());
   }
 
   const handleExclude = (taskId) => {
-    delTask(taskId).then(() => init());
+    delTask(taskId).then((s) => init());
   }
 
   const renderContent = () => {

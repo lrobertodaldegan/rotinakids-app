@@ -9,6 +9,7 @@ import Footer from "./Footer";
 import { Colors } from "../../utils";
 import { getColor } from "../../service/ColorService";
 import DateIndicator from "../inputs/DateIndicator";
+import MonthIndicator from "../inputs/MonthIndicator";
 
 export default function Screen({
                             navigation,
@@ -16,22 +17,30 @@ export default function Screen({
                             avatarId=null,
                             showHeaderActions=true, 
                             dateSelectable=false,
+                            monthSelectable=false,
                             onChangeDate=(nd)=>null,
+                            onChangeMonth=(nm)=>null,
                             content=<></>
                           }){
   const [bg, setBg] = useState(null);
 
-  useEffect(() => {
-    getColor().then((c) => {
-      setBg(c && c !== null ? c.color : Colors.lightGray);
-    });
-  }, []);
+  
+  getColor().then((c) => {
+    setBg(c && c !== null ? c.color : Colors.lightGray);
+  });
 
   const renderDateIndicator = () => {
     if(dateSelectable === true)
       return <DateIndicator onChange={onChangeDate}/>
 
     return <></>;
+  }
+
+  const renderMonthIndicator = () => {
+    if(monthSelectable === true && dateSelectable !== true)
+      return <MonthIndicator onChange={onChangeMonth}/>
+
+    return <></>
   }
 
   return (
@@ -44,6 +53,8 @@ export default function Screen({
           showActions={showHeaderActions}/>
 
       {renderDateIndicator()}
+
+      {renderMonthIndicator()}
 
       {content}
 

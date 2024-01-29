@@ -2,6 +2,14 @@ const Days = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta','Sába
 
 const AbDays = ['DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SAB'];
 
+const Months = [
+  'Janeiro', 'Fevereiro',
+  'Março', 'Abril', 'Maio',
+  'Junho', 'Julho', 'Agosto',
+  'Setembro', 'Outubro',
+  'Novembro', 'Dezembro'
+];
+
 const dateLabel = (dt) => {
   let y = `${dt.getFullYear()}`;
 
@@ -26,9 +34,15 @@ const completeDateLabel = (dt) => {
   return `${AbDays[dt.getDay()]} - ${d}/${m}/${y[2]}${y[3]}`;
 }
 
+const monthLabel = (dt) => {
+  return `${Months[dt.getMonth()]}/${dt.getFullYear()}`;
+}
+
 export {
   Days,
   AbDays,
+  Months,
   dateLabel,
+  monthLabel,
   completeDateLabel,
 }

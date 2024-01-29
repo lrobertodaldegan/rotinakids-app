@@ -29,6 +29,8 @@ export default function TaskCard({
 
   const handleSave = () => {
     if(title && title !== null){
+      setError(null);
+      
       onSave({id:title, title:title, value:val});
 
       ToastAndroid.show('Tarefa salva!', ToastAndroid.SHORT);

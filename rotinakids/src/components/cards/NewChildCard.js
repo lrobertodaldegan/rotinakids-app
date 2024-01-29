@@ -16,29 +16,39 @@ export default function NewChildCard({onSave=(val)=>null}) {
   const [name, setName] = useState(null);
   const [avatar, setAvatar] = useState(avatares[0]);
   const [idade, setIdade] = useState(null);
+  const [error, setError] = useState(null);
 
   const handleSave = () => {
-    onSave({
-      id: name,
-      avatarId: avatar.id, 
-      age: idade,
-      name: name,
-      hide:false
-    });
+    if(name && name !== null){
+      setError(null);
 
-    setName(null);
-    setIdade(null);
-    setAvatar(avatares[0]);
+      onSave({
+        id: name,
+        avatarId: avatar.id, 
+        age: idade,
+        name: name,
+        hide:false
+      });
+
+      setName(null);
+      setIdade(null);
+      setAvatar(avatares[0]);
+
+    } else {
+      setError('Dica: Informe um nome antes de salvar!');
+    }
   }
 
   return (
     <Card content={
       <>
-      <Label value={`Novo filho`} size={12} style={styles.topLbl}/>
+        <Label value={`Novo filho`} size={12} style={styles.topLbl}/>
 
         <ChildInputs name={name} idade={idade} avatar={avatar}
             onChangeName={setName} onChangeIdade={setIdade} 
             onChangeAvatar={setAvatar}/>
+
+        <Label value={error} style={{textAlign:'center'}}/>
 
         <View style={styles.btnWrap}>
           <SaveButton onPress={handleSave}/>

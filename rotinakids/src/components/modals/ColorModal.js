@@ -49,11 +49,13 @@ const screen = Dimensions.get('screen');
 
 const styles = StyleSheet.create({
   modalWrap:{
+    zIndex:22,
     paddingVertical:screen.height * 0.1,
     paddingHorizontal:screen.width * 0.05,
     alignItems:'center'
   },
   modalContent:{
+    zIndex:22,
     flexDirection:'row',
     flexWrap:'wrap',
     marginTop:20,

@@ -12,6 +12,7 @@ import Label from '../others/Label';
 export default function SaveButton({onPress=()=>null}) {
   return (
     <TouchableHighlight underlayColor={Colors.white} 
+        style={{minHeight:30}}
         onPress={onPress}>
 
       <View style={styles.wrap}>

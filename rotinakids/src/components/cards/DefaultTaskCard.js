@@ -34,8 +34,8 @@ export default function DefaultTasksCard({
     });
   }, []);
 
-  const handleSave = () => {
-    onSave({id:title, title:title, value:val, disabled:false});
+  const handleSave = (v) => {
+    onSave({id:title, title:title, value:v, disabled:false});
 
     ToastAndroid.show(`Tarefa ${title} salva!`, ToastAndroid.SHORT);
   }
@@ -55,10 +55,10 @@ export default function DefaultTasksCard({
       <>
         <Label style={styles.title} size={20} value={title}/>
       
-        <PointsInput value={val} onChange={(v) => setVal(v)}/>
+        <PointsInput value={val} onChange={(v) => {setVal(v); handleSave(v);}}/>
 
         <View style={styles.btnWrap}>
-          <SaveButton onPress={handleSave}/>
+          {/* <SaveButton onPress={handleSave}/> */}
 
           {/* <ShowHideButton disable={dis} onPress={handleDisable}/> */}
         </View>

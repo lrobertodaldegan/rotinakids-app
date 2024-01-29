@@ -14,8 +14,12 @@ import Label from '../others/Label';
 import ChildInsignias from '../others/ChildInsignias';
 import { getDailyReward, getMonthlyReward, getPointsReward, getRewardsByChild, getWeeklyReward } from '../../service/RewardService';
 import CalendarButton from '../buttons/CalendarButton';
+import Icon from '../others/Icon';
+import { faArrowDown, faArrowRight, faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
+import IconButton from '../buttons/IconButton';
+import ExcludeButton from '../buttons/ExcludeButton';
 
-export default function ChildCard({navigation, child, onSave=(val)=>null}) {
+export default function ChildCard({navigation, child, onSave=(val)=>null, onExclude=(id)=>null}) {
 
   const [name, setName] = useState(null);
   const [avatar, setAvatar] = useState(avatares[0]);
@@ -32,12 +36,13 @@ export default function ChildCard({navigation, child, onSave=(val)=>null}) {
   const [wr, setWr] = useState(null);
   const [mr, setMr] = useState(null);
   const [showRewardDetails, setShowRewardDetails] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(()=>{
-    getDailyReward().then(setDr);
-    getWeeklyReward().then(setWr);
-    getMonthlyReward().then(setMr);
-    getPointsReward().then(setPr);
+    getDailyReward().then(r => setDr(r));
+    getWeeklyReward().then(r => setWr(r));
+    getMonthlyReward().then(r => setMr(r));
+    getPointsReward().then(r => setPr(r));
 
     setName(child.name);
     setIdade(child.age);
@@ -68,36 +73,54 @@ export default function ChildCard({navigation, child, onSave=(val)=>null}) {
     handleSave(mode);
   }
 
+  const handleExclude = () => {
+    onExclude(child.id);
+  }
+
   const handleSave = (hidden) => {
-    onSave({
-      id: child.id,
-      avatarId: avatar.id, 
-      age: idade,
-      name: name,
-      hide: hidden === true
-    });
+    if(name && name !== null){
+      setError(null);
+
+      onSave({
+        id: child.id,
+        avatarId: avatar.id, 
+        age: idade,
+        name: name,
+        hide: hidden === true
+      });
+    } else {
+      setError('Dica: Informe um nome antes de salvar!');
+    }
   }
 
   const renderRewardDetails = () => {
-    if(showRewardDetails === true) {
+    if(showRewardDetails === true && (dr || wr || mr || pr)) {
       return (
         <View>
-          <Label value={`${dr.title}: ${dailyRewards}`} size={14} style={styles.lbl}/>
-          <Label value={`${wr.title}: ${weeklyRewards}`} size={14} style={styles.lbl}/>
-          <Label value={`${mr.title}: ${monthlyRewards}`} size={14} style={styles.lbl}/>
-          <Label value={`${pr.title}: ${pointsRewards}`} size={14} style={styles.lbl}/>
+          <Label value={dr ? `${dr.title}: ${dailyRewards}` : ''} 
+              size={14} style={styles.lbl}/>
+          <Label value={wr ? `${wr.title}: ${weeklyRewards}` : ''} 
+              size={14} style={styles.lbl}/>
+          <Label value={mr ? `${mr.title}: ${monthlyRewards}` : ''} 
+              size={14} style={styles.lbl}/>
+          <Label value={pr ? `${pr.title}: ${pointsRewards}` : ''} 
+              size={14} style={styles.lbl}/>
         </View>
       );
+    } else {
+      if(showRewardDetails === true){
+        return (
+          <Label value={'Nenhuma recompensa cadastrada'} 
+              size={14} style={styles.lbl}/>
+        );
+      }
     }
   }
 
   return (
-    <Card onPress={() => navigation.navigate('Daily', {child:child})} 
+    <Card onPress={() => null} 
         content={
           <>
-            <Label value={`Toque para iniciar rotina`} 
-                size={12} style={styles.topLbl}/>
-
             <ChildInputs name={name} idade={idade} avatar={avatar}
                 onChangeName={setName} onChangeIdade={setIdade} 
                 onChangeAvatar={setAvatar}/>
@@ -110,18 +133,29 @@ export default function ChildCard({navigation, child, onSave=(val)=>null}) {
                 <Label value={`${points} pontos`} size={14} style={styles.lbl}/>
 
                 <Label value={`${rewards} recompensas`} size={14} 
-                    style={[styles.lbl, {marginLeft:15}]}/>              
+                    style={[styles.lbl, {marginLeft:15}]}/>
+
+                <Icon size={12} style={{marginLeft:5,marginTop:4}} 
+                    icon={showRewardDetails === true ? faChevronUp : faChevronDown}/>       
               </View>
             </TouchableHighlight>
             
             {renderRewardDetails()}
 
+            <Label value={error} style={{textAlign:'center'}}/>
+
             <View style={styles.btnWrap}>
               <SaveButton onPress={() => handleSave(hide)}/>
 
-              {/* <ShowHideButton onPress={handleShowHide}/> */}
               <CalendarButton onPress={() => navigation.navigate('Calendar', {child:child})}/>
+
+              <ExcludeButton onPress={handleExclude}/>
             </View>
+
+            <IconButton icon={faArrowRight} label={'Acessar rotina!'}
+                iconStyle={{color:Colors.pinker}}
+                style={{color:Colors.pinker}}
+                onPress={() => navigation.navigate('Daily', {child:child})}/>
           </>
         }
     />

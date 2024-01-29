@@ -48,7 +48,26 @@ const saveChild = async (newChild) => {
   return children;
 }
 
+const delChild = async (id) => {
+    let objs = await CacheService.get(KEY);
+  
+    objs = JSON.parse(objs);
+  
+    if(objs && objs !== null && objs.length > 0){
+      let obj = objs.filter((d) => d.id === id);
+  
+      if(obj && obj !== null && obj.length > 0) 
+        objs.splice(objs.indexOf(obj[0]), 1);
+  
+    }
+  
+    await CacheService.register(KEY, JSON.stringify(objs));
+  
+    return objs;
+}
+
 export {
     getChildren,
     saveChild,
+    delChild,
 }

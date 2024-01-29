@@ -11,7 +11,7 @@ import { useIsFocused } from "@react-navigation/native";
 import NewChildCard from "../components/cards/NewChildCard";
 import Screen from "../components/others/Screen";
 import ChildCard from "../components/cards/ChildCard";
-import { getChildren, saveChild } from "../service/ChildService";
+import { delChild, getChildren, saveChild } from "../service/ChildService";
 import AdBanner from "../components/others/AdBanner";
 
 export default function HomeScreen({navigation}){
@@ -26,7 +26,6 @@ export default function HomeScreen({navigation}){
   }, [isFocused]);
 
   const init = () => {
-    setChildren([]);
     setLoading(true);
 
     getChildren().then((cs) => {
@@ -40,7 +39,15 @@ export default function HomeScreen({navigation}){
     saveChild(child).then((cs) => {
       setChildren(cs);
 
-      ToastAndroid.show('Salvo!', ToastAndroid.SHORT);
+      ToastAndroid.show(`Salvo com sucesso!`, ToastAndroid.SHORT);
+    });
+  }
+
+  const handleExclude = (childId) => {
+    delChild(childId).then(() => {
+      init();
+
+      ToastAndroid.show(`Filho removido com sucesso!`, ToastAndroid.SHORT);
     });
   }
 
@@ -56,7 +63,7 @@ export default function HomeScreen({navigation}){
               keyExtractor={(item) => item.id}
               renderItem={({item}) => 
                 <ChildCard navigation={navigation} child={item} 
-                    onSave={handleSave}/>}
+                    onSave={handleSave} onExclude={handleExclude}/>}
               ListEmptyComponent={<></>}
               ListFooterComponent={
                 <>

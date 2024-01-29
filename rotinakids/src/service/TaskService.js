@@ -30,9 +30,10 @@ const getTasks = async (getDefaultTasksToo) => {
     for(let i=0; i < tarefas.length; i++){
       let t = await getDefaultTask(tarefas[i].title);
       
-      if(t && t !== null)
-        result.push(t && t !== null ? t : tarefas[i]);
+      result.push(t && t !== null ? t : tarefas[i]);
     }
+
+
   }
 
   return result;

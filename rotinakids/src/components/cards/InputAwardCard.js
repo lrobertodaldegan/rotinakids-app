@@ -23,6 +23,7 @@ export default function InputAwardCard({
   const [disabled, setDisabled] = useState(item?.disabled);
 
   const handleSave = () => {
+    
     onSave({title:item?.title, disabled:disabled === true});
 
     ToastAndroid.show('Recompensa salva!', ToastAndroid.SHORT);

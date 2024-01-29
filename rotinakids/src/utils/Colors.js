@@ -1,4 +1,5 @@
 export const Colors = {
+    lighterPink:'#ffd1d9',
     lightPink:'#ffa1b2',
     pink:'#ff3c5f',
     pinker:'#ff0532',

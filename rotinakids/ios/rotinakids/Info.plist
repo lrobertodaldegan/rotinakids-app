@@ -36,7 +36,7 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -51,5 +51,54 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>EncodeSans-Black.ttf</string>
+		<string>EncodeSans-Bold.ttf</string>
+		<string>EncodeSans-ExtraBold.ttf</string>
+		<string>EncodeSans-ExtraLight.ttf</string>
+		<string>EncodeSans-Light.ttf</string>
+		<string>EncodeSans-Medium.ttf</string>
+		<string>EncodeSans-Regular.ttf</string>
+		<string>EncodeSans-SemiBold.ttf</string>
+		<string>EncodeSans-Thin.ttf</string>
+		<string>EncodeSans-VariableFont_wdth,wght.ttf</string>
+		<string>EncodeSans_Condensed-Black.ttf</string>
+		<string>EncodeSans_Condensed-Bold.ttf</string>
+		<string>EncodeSans_Condensed-ExtraBold.ttf</string>
+		<string>EncodeSans_Condensed-ExtraLight.ttf</string>
+		<string>EncodeSans_Condensed-Light.ttf</string>
+		<string>EncodeSans_Condensed-Medium.ttf</string>
+		<string>EncodeSans_Condensed-Regular.ttf</string>
+		<string>EncodeSans_Condensed-SemiBold.ttf</string>
+		<string>EncodeSans_Condensed-Thin.ttf</string>
+		<string>EncodeSans_Expanded-Black.ttf</string>
+		<string>EncodeSans_Expanded-Bold.ttf</string>
+		<string>EncodeSans_Expanded-ExtraBold.ttf</string>
+		<string>EncodeSans_Expanded-ExtraLight.ttf</string>
+		<string>EncodeSans_Expanded-Light.ttf</string>
+		<string>EncodeSans_Expanded-Medium.ttf</string>
+		<string>EncodeSans_Expanded-Regular.ttf</string>
+		<string>EncodeSans_Expanded-SemiBold.ttf</string>
+		<string>EncodeSans_Expanded-Thin.ttf</string>
+		<string>EncodeSans_SemiCondensed-Black.ttf</string>
+		<string>EncodeSans_SemiCondensed-Bold.ttf</string>
+		<string>EncodeSans_SemiCondensed-ExtraBold.ttf</string>
+		<string>EncodeSans_SemiCondensed-ExtraLight.ttf</string>
+		<string>EncodeSans_SemiCondensed-Light.ttf</string>
+		<string>EncodeSans_SemiCondensed-Medium.ttf</string>
+		<string>EncodeSans_SemiCondensed-Regular.ttf</string>
+		<string>EncodeSans_SemiCondensed-SemiBold.ttf</string>
+		<string>EncodeSans_SemiCondensed-Thin.ttf</string>
+		<string>EncodeSans_SemiExpanded-Black.ttf</string>
+		<string>EncodeSans_SemiExpanded-Bold.ttf</string>
+		<string>EncodeSans_SemiExpanded-ExtraBold.ttf</string>
+		<string>EncodeSans_SemiExpanded-ExtraLight.ttf</string>
+		<string>EncodeSans_SemiExpanded-Light.ttf</string>
+		<string>EncodeSans_SemiExpanded-Medium.ttf</string>
+		<string>EncodeSans_SemiExpanded-Regular.ttf</string>
+		<string>EncodeSans_SemiExpanded-SemiBold.ttf</string>
+		<string>EncodeSans_SemiExpanded-Thin.ttf</string>
+	</array>
 </dict>
 </plist>
